@@ -1,0 +1,17 @@
+{
+  "crons": [
+    {
+      "path": "/api/integrations/facebook/refresh-all",
+      "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/integrations/linkedin/refresh-all",
+      "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/posts/scheduled/process",
+      "schedule": "*/5 * * * *"
+    }
+  ]
+}
+

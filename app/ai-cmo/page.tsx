@@ -23,7 +23,15 @@ type Conversation = {
 };
 
 export default function AICMOPage() {
-  const supabase = createClient();
+  // Lazy-load Supabase client to avoid build-time errors
+  const [supabase] = useState(() => {
+    try {
+      return createClient();
+    } catch (error) {
+      // During build, return null and handle gracefully
+      return null as any;
+    }
+  });
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [currentConversation, setCurrentConversation] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -42,6 +50,7 @@ export default function AICMOPage() {
   }, [messages, sendingMessage]);
 
   const loadConversations = useCallback(async () => {
+    if (!supabase) return;
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
@@ -62,6 +71,7 @@ export default function AICMOPage() {
   }, [supabase]);
 
   const loadMessages = useCallback(async (conversationId: string) => {
+    if (!supabase) return;
     try {
       const { data, error } = await supabase
         .from("messages")
@@ -91,6 +101,7 @@ export default function AICMOPage() {
   }, [currentConversation, loadMessages]);
 
   const createNewConversation = async () => {
+    if (!supabase) return;
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
@@ -114,6 +125,7 @@ export default function AICMOPage() {
   };
 
   const deleteConversation = async (conversationId: string) => {
+    if (!supabase) return;
     try {
       const { error } = await supabase
         .from("conversations")
@@ -132,6 +144,7 @@ export default function AICMOPage() {
   };
 
   const updateConversationTitle = async (conversationId: string, title: string) => {
+    if (!supabase) return;
     try {
       const { error } = await supabase
         .from("conversations")
@@ -149,7 +162,7 @@ export default function AICMOPage() {
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || sendingMessage) return;
+    if (!input.trim() || sendingMessage || !supabase) return;
 
     const userMessage = input.trim();
     setInput("");

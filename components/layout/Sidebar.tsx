@@ -41,7 +41,8 @@ export function Sidebar() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
-  const supabase = createClient();
+  // Create Supabase client only at runtime, never during build
+  const [supabase, setSupabase] = useState<ReturnType<typeof createClient> | null>(null);
 
   const isPlatformRoute = pathname?.startsWith("/dashboard") ||
     pathname?.startsWith("/posts") ||
@@ -53,8 +54,19 @@ export function Sidebar() {
     pathname?.startsWith("/settings") ||
     pathname?.startsWith("/inbox");
 
+  // Initialize Supabase client only in useEffect (client-side only)
   useEffect(() => {
-    if (isPlatformRoute) {
+    if (typeof window !== 'undefined') {
+      try {
+        setSupabase(createClient());
+      } catch (error) {
+        console.error('Failed to create Supabase client:', error);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isPlatformRoute && supabase) {
       supabase.auth.getUser().then(({ data: { user } }) => {
         setUser(user);
       });
@@ -168,8 +180,9 @@ export function Sidebar() {
               variant="ghost"
               size="icon"
               className="ml-auto h-9 w-9 rounded-full border border-white/10 bg-white/5 text-gray-300 transition hover:border-white/20 hover:text-white"
-              disabled={loading}
+              disabled={loading || !supabase}
               onClick={async () => {
+                if (!supabase) return;
                 setLoading(true);
                 await supabase.auth.signOut();
                 router.push("/");

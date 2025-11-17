@@ -91,6 +91,19 @@ export async function GET(request: Request) {
       expiresAt = new Date(Date.now() + (expires_in || 3600) * 1000); // Default 1 hour
     }
 
+    // Get Facebook user ID (required for deauthorize/data deletion callbacks)
+    const meUrl = new URL("https://graph.facebook.com/v21.0/me");
+    meUrl.searchParams.set("access_token", longLivedToken);
+    meUrl.searchParams.set("fields", "id");
+
+    const meResponse = await fetch(meUrl.toString());
+    const meData = await meResponse.json();
+    const facebookUserId = meResponse.ok && !meData.error ? meData.id : null;
+
+    if (!facebookUserId) {
+      console.error("Failed to fetch Facebook user ID:", meData);
+    }
+
     // Get user's pages (required for Instagram and page management)
     const pagesUrl = new URL("https://graph.facebook.com/v21.0/me/accounts");
     pagesUrl.searchParams.set("access_token", longLivedToken);
@@ -158,6 +171,7 @@ export async function GET(request: Request) {
         connected_at: new Date().toISOString(),
         // Store additional metadata as JSONB
         metadata: {
+          fb_user_id: facebookUserId, // Store for deauthorize/data deletion callbacks
           pages: pagesWithInstagram,
           app_id: FACEBOOK_APP_ID,
           expired: false, // Mark as not expired on connection

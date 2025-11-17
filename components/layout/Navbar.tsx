@@ -15,7 +15,8 @@ export function Navbar({ isAuthenticated = false }: { isAuthenticated?: boolean 
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
-  const supabase = createClient();
+  // Create Supabase client only at runtime, never during build
+  const [supabase, setSupabase] = useState<ReturnType<typeof createClient> | null>(null);
 
   // Determine if we're on a platform route
   const isPlatformRoute = Boolean(
@@ -33,8 +34,19 @@ export function Navbar({ isAuthenticated = false }: { isAuthenticated?: boolean 
   );
   const authedMode = isAuthenticated || isPlatformRoute;
 
+  // Initialize Supabase client only in useEffect (client-side only)
   useEffect(() => {
-    if (authedMode) {
+    if (typeof window !== 'undefined') {
+      try {
+        setSupabase(createClient());
+      } catch (error) {
+        console.error('Failed to create Supabase client:', error);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (authedMode && supabase) {
       supabase.auth.getUser().then(({ data: { user } }) => {
         setUser(user);
       });

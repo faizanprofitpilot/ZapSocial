@@ -32,7 +32,8 @@ type Suggestion = {
 
 function DashboardContent() {
   const router = useRouter();
-  const supabase = createClient();
+  // Create Supabase client only at runtime, never during build
+  const [supabase, setSupabase] = useState<ReturnType<typeof createClient> | null>(null);
   
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [posts, setPosts] = useState<any[]>([]);
@@ -40,6 +41,17 @@ function DashboardContent() {
   const [notifications, setNotifications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshingSuggestions, setRefreshingSuggestions] = useState(false);
+
+  // Initialize Supabase client only in useEffect (client-side only)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        setSupabase(createClient());
+      } catch (error) {
+        console.error('Failed to create Supabase client:', error);
+      }
+    }
+  }, []);
 
   const loadSuggestions = useCallback(async () => {
     try {
@@ -77,6 +89,7 @@ function DashboardContent() {
   // Load data
   useEffect(() => {
     const loadData = async () => {
+      if (!supabase) return;
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -14,10 +14,23 @@ export default function SignInPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const supabase = createClient();
+  // Create Supabase client only at runtime, never during build
+  const [supabase, setSupabase] = useState<ReturnType<typeof createClient> | null>(null);
+
+  // Initialize Supabase client only in useEffect (client-side only)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        setSupabase(createClient());
+      } catch (error) {
+        console.error('Failed to create Supabase client:', error);
+      }
+    }
+  }, []);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!supabase) return;
     setLoading(true);
     setError(null);
 
@@ -36,6 +49,7 @@ export default function SignInPage() {
   };
 
   const handleGoogleSignIn = async () => {
+    if (!supabase) return;
     setLoading(true);
     setError(null);
 

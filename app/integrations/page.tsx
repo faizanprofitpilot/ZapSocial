@@ -39,13 +39,26 @@ const platforms = [
 
 export default function IntegrationsPage() {
   const router = useRouter();
-  const supabase = createClient();
+  // Create Supabase client only at runtime, never during build
+  const [supabase, setSupabase] = useState<ReturnType<typeof createClient> | null>(null);
   const [integrations, setIntegrations] = useState<Integration[]>([]);
   const [loading, setLoading] = useState(true);
   const [disconnecting, setDisconnecting] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState<string | null>(null);
 
+  // Initialize Supabase client only in useEffect (client-side only)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        setSupabase(createClient());
+      } catch (error) {
+        console.error('Failed to create Supabase client:', error);
+      }
+    }
+  }, []);
+
   const loadIntegrations = async () => {
+    if (!supabase) return;
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       router.push("/auth/signin");

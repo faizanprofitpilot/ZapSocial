@@ -1,21 +1,21 @@
-# Zapwrite - AI Content Studio
+# ZapSocial - AI Social Media Management Platform
 
-Zapwrite is an AI-powered platform that helps businesses generate SEO-optimized blog posts and social media content in minutes.
+ZapSocial is an AI-powered social media management platform that helps businesses create, schedule, and publish content across LinkedIn, Instagram, and Facebook.
 
 ## Features
 
-- **Keyword → Blog Generator**: Transform keywords into full-length, SEO-optimized blog posts
-- **YouTube → Blog Generator**: Convert YouTube videos into blog posts with transcripts
-- **Social Media Caption Generator**: Generate captions for Twitter, LinkedIn, and Instagram
-- **Zapier Integration**: One-click publishing to Notion, Medium, Webflow, or any platform via Zapier
-- **Programmatic SEO**: Bulk generation mode for scaling content creation
+- **AI-Powered Caption Generation**: Generate platform-specific captions for LinkedIn, Instagram, and Facebook
+- **Social Media Publishing**: Direct publishing to LinkedIn, Instagram, and Facebook
+- **Post Scheduling**: Schedule posts for future publishing with automatic processing
+- **AI Copilot**: Chat-based AI assistant for content strategy and ideas
+- **Analytics**: Track post engagement and performance metrics
 
 ## Tech Stack
 
 - **Frontend**: Next.js 15, React, Tailwind CSS
 - **Backend**: Supabase (Auth + Database)
 - **AI**: OpenAI GPT-4o
-- **Integrations**: RapidAPI (YouTube Transcript), Zapier Webhooks
+- **Social Integrations**: Meta (Facebook/Instagram) API, LinkedIn API
 - **Payments**: Stripe (planned)
 - **Deployment**: Vercel
 
@@ -27,32 +27,34 @@ Zapwrite is an AI-powered platform that helps businesses generate SEO-optimized 
 npm install
 ```
 
-3. Set up environment variables (copy `.env.example` to `.env`):
+3. Set up environment variables (see `ENV_SETUP.md` for full list):
 ```
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 OPENAI_API_KEY=your_openai_api_key
-RAPIDAPI_YOUTUBE_KEY=your_rapidapi_key
-RAPIDAPI_YOUTUBE_HOST=youtube-transcript-api.p.rapidapi.com
+FACEBOOK_APP_ID=your_facebook_app_id
+FACEBOOK_APP_SECRET=your_facebook_app_secret
+LINKEDIN_CLIENT_ID=your_linkedin_client_id
+LINKEDIN_CLIENT_SECRET=your_linkedin_client_secret
+NEXT_PUBLIC_APP_URL=your_app_url
 ```
 
 4. Set up Supabase:
    - Create a new Supabase project
-   - Run the SQL schema from `supabase/schema.sql` in your Supabase SQL editor
+   - Run migrations in order (see `DATABASE_MIGRATIONS.md`)
 
 5. Run the development server:
 ```bash
 npm run dev
 ```
 
-## Database Schema
+## Documentation
 
-See `supabase/schema.sql` for the complete database schema including:
-- Users table
-- Content table
-- Generations tracking table
-- Zapier webhooks table
+- `ENV_SETUP.md` - Environment variables guide
+- `DATABASE_MIGRATIONS.md` - Database migration guide
+- `FACEBOOK_INSTAGRAM_SETUP.md` - Meta API setup guide
+- `LINKEDIN_SETUP_GUIDE.md` - LinkedIn API setup guide
 
 ## License
 

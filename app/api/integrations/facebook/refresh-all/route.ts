@@ -64,6 +64,18 @@ export async function POST(request: Request) {
     // Refresh each token
     for (const integration of integrations) {
       try {
+        // OPTIMIZATION: Skip if token was refreshed within last 24 hours to prevent duplicate refreshes
+        const metadata = integration.metadata as any;
+        const lastRefresh = metadata?.token_refreshed_at || metadata?.last_auto_refresh;
+        if (lastRefresh) {
+          const hoursSinceRefresh = (Date.now() - new Date(lastRefresh).getTime()) / (1000 * 60 * 60);
+          if (hoursSinceRefresh < 24) {
+            // Skip, already refreshed recently
+            results.refreshed++; // Count as successful (already refreshed)
+            continue;
+          }
+        }
+
         const refreshUrl = new URL("https://graph.facebook.com/v21.0/oauth/access_token");
         refreshUrl.searchParams.set("grant_type", "fb_exchange_token");
         refreshUrl.searchParams.set("client_id", FACEBOOK_APP_ID);

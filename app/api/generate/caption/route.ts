@@ -70,42 +70,68 @@ INSTAGRAM: [caption]`;
       instagram: instagramMatch ? instagramMatch[1].trim() : "",
     };
 
-    // Save as separate posts in posts table
-    const postIds: string[] = [];
+    // OPTIMIZATION: Batch insert all posts in a single query instead of individual inserts
     const platforms = [
       { id: "facebook", caption: captions.facebook },
       { id: "linkedin", caption: captions.linkedin },
       { id: "instagram", caption: captions.instagram },
     ];
 
-    for (const platform of platforms) {
-      if (!platform.caption) continue;
+    // Prepare all posts for batch insert
+    const postsToInsert = platforms
+      .filter(platform => platform.caption) // Only include platforms with captions
+      .map(platform => {
+        // Extract hashtags from caption
+        const hashtagMatches = platform.caption.match(/#\w+/g);
+        const hashtags = hashtagMatches
+          ? hashtagMatches.map((h) => h.replace("#", "")).slice(0, 10)
+          : [];
 
-      // Extract hashtags from caption
-      const hashtagMatches = platform.caption.match(/#\w+/g);
-      const hashtags = hashtagMatches
-        ? hashtagMatches.map((h) => h.replace("#", "")).slice(0, 10)
-        : [];
-
-      const { data: post, error } = await supabase
-        .from("posts")
-        .insert({
+        return {
           user_id: user.id,
           caption: platform.caption,
           hashtags,
           platform: platform.id,
-          status: "draft",
-        })
-        .select()
-        .single();
+          status: "draft" as const,
+        };
+      });
 
-      if (error) {
-        console.error(`Error saving ${platform.id} post:`, error);
-        continue;
-      }
+    // Batch insert all posts in a single query
+    let postIds: string[] = [];
+    if (postsToInsert.length > 0) {
+      const { data: posts, error: insertError } = await supabase
+        .from("posts")
+        .insert(postsToInsert)
+        .select("id");
 
-      if (post) {
-        postIds.push(post.id);
+      if (insertError) {
+        console.error("Error batch inserting posts:", insertError);
+        // Fallback: try individual inserts if batch fails
+        for (const platform of platforms) {
+          if (!platform.caption) continue;
+          const hashtagMatches = platform.caption.match(/#\w+/g);
+          const hashtags = hashtagMatches
+            ? hashtagMatches.map((h) => h.replace("#", "")).slice(0, 10)
+            : [];
+
+          const { data: post, error } = await supabase
+            .from("posts")
+            .insert({
+              user_id: user.id,
+              caption: platform.caption,
+              hashtags,
+              platform: platform.id,
+              status: "draft",
+            })
+            .select()
+            .single();
+
+          if (!error && post) {
+            postIds.push(post.id);
+          }
+        }
+      } else {
+        postIds = (posts || []).map(p => p.id);
       }
     }
 

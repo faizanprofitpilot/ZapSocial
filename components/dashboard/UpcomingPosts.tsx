@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/lib/utils";
-import { Calendar, ChevronRight } from "lucide-react";
+import { Calendar, ChevronRight, ChevronDown, ChevronUp } from "lucide-react";
 
 type UpcomingPost = {
   id: string;
@@ -37,21 +37,26 @@ const getPlatformLogo = (platform: string) => {
 
 export function UpcomingPosts({ posts }: UpcomingPostsProps) {
   // Get upcoming scheduled posts and recent drafts
-  const scheduled = posts
+  const [scheduledExpanded, setScheduledExpanded] = useState(false);
+  const [draftsExpanded, setDraftsExpanded] = useState(false);
+
+  const allScheduled = posts
     .filter((p) => p.status === "scheduled" && p.scheduled_at)
     .sort((a, b) => {
       const dateA = new Date(a.scheduled_at || a.created_at);
       const dateB = new Date(b.scheduled_at || b.created_at);
       return dateA.getTime() - dateB.getTime();
-    })
-    .slice(0, 5);
+    });
 
-  const drafts = posts
+  const scheduled = scheduledExpanded ? allScheduled : allScheduled.slice(0, 3);
+
+  const allDrafts = posts
     .filter((p) => p.status === "draft")
-    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-    .slice(0, 3);
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
-  if (scheduled.length === 0 && drafts.length === 0) {
+  const drafts = draftsExpanded ? allDrafts : allDrafts.slice(0, 3);
+
+  if (allScheduled.length === 0 && allDrafts.length === 0) {
     return (
       <Card className="glass-light border border-white/10">
         <CardHeader>
@@ -78,9 +83,31 @@ export function UpcomingPosts({ posts }: UpcomingPostsProps) {
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
-        {scheduled.length > 0 && (
+        {allScheduled.length > 0 && (
           <div>
-            <h4 className="text-xs font-semibold text-gray-400 mb-2 uppercase tracking-wide">Scheduled</h4>
+            <button
+              onClick={() => setScheduledExpanded(!scheduledExpanded)}
+              className="flex items-center justify-between w-full mb-2 group"
+            >
+              <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide group-hover:text-gray-300 transition-colors">
+                Scheduled Posts
+              </h4>
+              {allScheduled.length > 3 && (
+                <div className="flex items-center gap-1 text-xs text-gray-500 group-hover:text-gray-400">
+                  {scheduledExpanded ? (
+                    <>
+                      <ChevronUp className="w-3 h-3" />
+                      <span>Show Less</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>View All ({allScheduled.length})</span>
+                      <ChevronDown className="w-3 h-3" />
+                    </>
+                  )}
+                </div>
+              )}
+            </button>
             <div className="space-y-2">
               {scheduled.map((post) => {
                 const logo = getPlatformLogo(post.platform);
@@ -116,9 +143,31 @@ export function UpcomingPosts({ posts }: UpcomingPostsProps) {
           </div>
         )}
 
-        {drafts.length > 0 && (
+        {allDrafts.length > 0 && (
           <div>
-            <h4 className="text-xs font-semibold text-gray-400 mb-2 uppercase tracking-wide mt-4">Drafts</h4>
+            <button
+              onClick={() => setDraftsExpanded(!draftsExpanded)}
+              className="flex items-center justify-between w-full mb-2 mt-4 group"
+            >
+              <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide group-hover:text-gray-300 transition-colors">
+                Drafts
+              </h4>
+              {allDrafts.length > 3 && (
+                <div className="flex items-center gap-1 text-xs text-gray-500 group-hover:text-gray-400">
+                  {draftsExpanded ? (
+                    <>
+                      <ChevronUp className="w-3 h-3" />
+                      <span>Show Less</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>View All ({allDrafts.length})</span>
+                      <ChevronDown className="w-3 h-3" />
+                    </>
+                  )}
+                </div>
+              )}
+            </button>
             <div className="space-y-2">
               {drafts.map((post) => {
                 const logo = getPlatformLogo(post.platform);

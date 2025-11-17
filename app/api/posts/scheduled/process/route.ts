@@ -53,6 +53,49 @@ export async function POST(request: Request) {
       });
     }
 
+    // OPTIMIZATION: Batch fetch all required integrations to avoid N+1 queries
+    // Get all unique user IDs from posts
+    const userIds = [...new Set(scheduledPosts.map(p => p.user_id))];
+    
+    // Collect all platform types needed (map instagram to facebook for lookup)
+    const allPlatforms = new Set<string>();
+    scheduledPosts.forEach(post => {
+      let platforms: string[] = [];
+      if (Array.isArray(post.platform)) {
+        platforms = post.platform;
+      } else if (typeof post.platform === "string") {
+        platforms = [post.platform];
+      } else {
+        platforms = post.engagement_data?.platforms || [];
+      }
+      platforms.forEach(p => {
+        // Instagram uses Facebook integration
+        allPlatforms.add(p === "instagram" ? "facebook" : p);
+      });
+    });
+
+    // Fetch all needed integrations in ONE query
+    const { data: allIntegrations, error: integrationsFetchError } = await supabase
+      .from("integrations")
+      .select("*")
+      .in("user_id", userIds)
+      .in("platform", Array.from(allPlatforms));
+
+    if (integrationsFetchError) {
+      console.error("Error fetching integrations:", integrationsFetchError);
+      return NextResponse.json(
+        { error: "Failed to fetch integrations" },
+        { status: 500 }
+      );
+    }
+
+    // Create lookup map: key = "user_id_platform", value = integration
+    const integrationsMap = new Map<string, any>();
+    (allIntegrations || []).forEach(integration => {
+      const key = `${integration.user_id}_${integration.platform}`;
+      integrationsMap.set(key, integration);
+    });
+
     const results = {
       total: scheduledPosts.length,
       processed: 0,
@@ -90,15 +133,12 @@ export async function POST(request: Request) {
         // Process each platform
         for (const platform of platforms) {
           try {
-            // Get integration for this platform
-            const { data: integrations, error: integrationsError } = await supabase
-              .from("integrations")
-              .select("*")
-              .eq("user_id", post.user_id)
-              .eq("platform", platform === "instagram" ? "facebook" : platform)
-              .single();
+            // Get integration from pre-fetched map (no database query needed)
+            const platformKey = platform === "instagram" ? "facebook" : platform;
+            const integrationKey = `${post.user_id}_${platformKey}`;
+            const integrations = integrationsMap.get(integrationKey);
 
-            if (integrationsError || !integrations) {
+            if (!integrations) {
               results.errors.push({
                 postId: post.id,
                 error: `${platform} integration not found`,

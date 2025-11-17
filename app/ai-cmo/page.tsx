@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Sparkles, Send, MessageSquare, Trash2, Plus, Loader2, Menu, X as XIcon, History } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 type Message = {
   id: string;
@@ -320,8 +321,15 @@ export default function AICMOPage() {
             <div className="flex flex-col items-center justify-center h-full">
               <div className="text-center max-w-2xl px-4">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-purple-500 to-cyan-500 shadow-lg shadow-brand-500/30">
-                    <Sparkles className="h-8 w-8 text-white" />
+                  <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-purple-500 to-cyan-500 shadow-lg shadow-brand-500/30 overflow-hidden">
+                    <Image
+                      src="/AI CMO Logo.png"
+                      alt="AI CMO"
+                      width={64}
+                      height={64}
+                      className="object-contain p-2"
+                      priority
+                    />
                   </div>
                 </div>
                 <h2 className="text-xl lg:text-2xl font-semibold text-white mb-2">
@@ -352,10 +360,21 @@ export default function AICMOPage() {
                 <div
                   key={msg.id}
                   className={cn(
-                    "flex",
+                    "flex items-start gap-3",
                     msg.role === "user" ? "justify-end" : "justify-start"
                   )}
                 >
+                  {msg.role === "assistant" && (
+                    <div className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 via-purple-500 to-cyan-500 overflow-hidden">
+                      <Image
+                        src="/AI CMO Logo.png"
+                        alt="AI CMO"
+                        width={32}
+                        height={32}
+                        className="object-contain p-1"
+                      />
+                    </div>
+                  )}
                   <div
                     className={cn(
                       "max-w-[85%] lg:max-w-[80%] rounded-2xl p-3 lg:p-4",
@@ -369,7 +388,16 @@ export default function AICMOPage() {
                 </div>
               ))}
               {sendingMessage && (
-                <div className="flex justify-start">
+                <div className="flex items-start gap-3 justify-start">
+                  <div className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 via-purple-500 to-cyan-500 overflow-hidden">
+                    <Image
+                      src="/AI CMO Logo.png"
+                      alt="AI CMO"
+                      width={32}
+                      height={32}
+                      className="object-contain p-1"
+                    />
+                  </div>
                   <div className="glass-base glass-mid border border-white/10 rounded-2xl p-3 lg:p-4 text-gray-200">
                     <div className="flex items-center gap-2">
                       <Loader2 className="h-4 w-4 animate-spin" />

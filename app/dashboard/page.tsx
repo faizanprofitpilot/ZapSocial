@@ -7,6 +7,7 @@ import { MiniCalendar, WeeklySummary } from "@/components/dashboard/MiniCalendar
 import { UpcomingPosts } from "@/components/dashboard/UpcomingPosts";
 import { TodaySummary } from "@/components/dashboard/TodaySummary";
 import { RecentPublishingActivity } from "@/components/dashboard/RecentPublishingActivity";
+import { AIEngagementSummary } from "@/components/dashboard/AIEngagementSummary";
 import { CopilotBar } from "@/components/dashboard/CopilotBar";
 import { FloatingCreateButton } from "@/components/dashboard/FloatingCreateButton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -329,6 +330,8 @@ function DashboardContent() {
                 <MiniCalendar scheduledPosts={allCalendarEvents} />
                 <WeeklySummary scheduledPosts={allCalendarEvents.filter((e) => e.platform !== "holiday")} />
               </div>
+
+              <AIEngagementSummary />
 
               <RecentPublishingActivity posts={posts} />
             </div>

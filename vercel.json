@@ -11,6 +11,10 @@
     {
       "path": "/api/posts/scheduled/process",
       "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/automation/comments/process",
+      "schedule": "*/10 * * * *"
     }
   ]
 }

@@ -7,6 +7,14 @@ import { PlatformMain } from "@/components/layout/PlatformMain";
 export const metadata: Metadata = {
   title: "ZapSocial - AI Social Media Manager",
   description: "Generate, schedule, and publish content across all platforms with AI",
+  icons: {
+    icon: [
+      { url: "/zapsocial-logo.png", sizes: "any" },
+      { url: "/icon.png", sizes: "any" },
+    ],
+    apple: "/zapsocial-logo.png",
+    shortcut: "/zapsocial-logo.png",
+  },
 };
 
 export default function RootLayout({

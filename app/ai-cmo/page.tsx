@@ -23,15 +23,8 @@ type Conversation = {
 };
 
 export default function AICMOPage() {
-  // Lazy-load Supabase client to avoid build-time errors
-  const [supabase] = useState(() => {
-    try {
-      return createClient();
-    } catch (error) {
-      // During build, return null and handle gracefully
-      return null as any;
-    }
-  });
+  // Create Supabase client only at runtime, never during build
+  const [supabase, setSupabase] = useState<ReturnType<typeof createClient> | null>(null);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [currentConversation, setCurrentConversation] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -41,6 +34,17 @@ export default function AICMOPage() {
   const [showConversations, setShowConversations] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  // Initialize Supabase client only in useEffect (client-side only)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        setSupabase(createClient());
+      } catch (error) {
+        console.error('Failed to create Supabase client:', error);
+      }
+    }
+  }, []);
 
   // Auto-scroll to bottom when new messages are added
   useEffect(() => {

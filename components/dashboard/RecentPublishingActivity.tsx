@@ -77,7 +77,7 @@ export function RecentPublishingActivity({ posts, onRetry }: RecentPublishingAct
     <Card className="glass-base glass-mid border border-white/5 p-6 md:p-8">
       <CardHeader className="flex items-center justify-between p-0">
         <div className="flex items-center gap-2">
-          <Activity className="h-4 w-4 text-brand-200" />
+          <Activity className="h-4 w-4 text-cyan-200" />
           <CardTitle className="text-base font-semibold text-white">
             Recent Publishing Activity
           </CardTitle>
@@ -111,7 +111,7 @@ export function RecentPublishingActivity({ posts, onRetry }: RecentPublishingAct
                       className="h-5 w-5 object-contain"
                     />
                   ) : (
-                    <Activity className="h-4 w-4 text-brand-200" />
+                    <Activity className="h-4 w-4 text-cyan-200" />
                   )}
                 </div>
                 <div className="flex-1 min-w-0">

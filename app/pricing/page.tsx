@@ -28,11 +28,11 @@ export default function PricingPage() {
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-brand-600" />
+                  <Check className="w-5 h-5 text-cyan-600" />
                   <span className="text-gray-300">3 generations/month</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-brand-600" />
+                  <Check className="w-5 h-5 text-cyan-600" />
                   <span className="text-gray-300">Basic content generation</span>
                 </li>
               </ul>
@@ -42,9 +42,9 @@ export default function PricingPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-brand-500 shadow-brand-lg relative">
+          <Card className="border-2 border-cyan-500 shadow-cyan-lg relative">
             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-              <span className="bg-brand-600 text-white text-xs font-medium px-3 py-1 rounded-full">
+              <span className="bg-cyan-600 text-white text-xs font-medium px-3 py-1 rounded-full">
                 Popular
               </span>
             </div>
@@ -59,20 +59,20 @@ export default function PricingPage() {
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-brand-600" />
+                  <Check className="w-5 h-5 text-cyan-600" />
                   <span className="text-gray-300">Unlimited generations</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-brand-600" />
+                  <Check className="w-5 h-5 text-cyan-600" />
                   <span className="text-gray-300">Zapier integration</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-brand-600" />
+                  <Check className="w-5 h-5 text-cyan-600" />
                   <span className="text-gray-300">All content types</span>
                 </li>
               </ul>
               <Link href="/auth/signup">
-                <Button className="w-full bg-gradient-brand hover:bg-gradient-brand-hover">
+                <Button className="w-full bg-gradient-to-r from-cyan-400 to-cyan-600 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover">
                   Get Started
                 </Button>
               </Link>
@@ -91,15 +91,15 @@ export default function PricingPage() {
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-brand-600" />
+                  <Check className="w-5 h-5 text-cyan-600" />
                   <span className="text-gray-300">Everything in Pro</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-brand-600" />
+                  <Check className="w-5 h-5 text-cyan-600" />
                   <span className="text-gray-300">Bulk/programmatic SEO</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-brand-600" />
+                  <Check className="w-5 h-5 text-cyan-600" />
                   <span className="text-gray-300">Priority support</span>
                 </li>
               </ul>

@@ -150,7 +150,7 @@ export function Calendar({ selected, onSelect, className, captionLayout = "dropd
                 "h-8 rounded-full border border-transparent text-gray-200 transition",
                 !isCurrentMonth && "text-gray-500 opacity-60",
                 isSelected
-                  ? "bg-gradient-to-r from-brand-500 via-purple-500 to-cyan-500 text-white shadow"
+                  ? "bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 text-white shadow"
                   : "hover:border-white/20 hover:bg-white/10"
               )}
             >

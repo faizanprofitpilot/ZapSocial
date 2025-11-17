@@ -321,7 +321,7 @@ export default function AICMOPage() {
             <div className="flex flex-col items-center justify-center h-full">
               <div className="text-center max-w-2xl px-4">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-purple-500 to-cyan-500 shadow-lg shadow-brand-500/30 overflow-hidden">
+                  <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-cyan-600 shadow-lg shadow-cyan-500/30 overflow-hidden">
                     <Image
                       src="/AI CMO Logo.png"
                       alt="AI CMO"
@@ -365,7 +365,7 @@ export default function AICMOPage() {
                   )}
                 >
                   {msg.role === "assistant" && (
-                    <div className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 via-purple-500 to-cyan-500 overflow-hidden">
+                    <div className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-cyan-600 overflow-hidden">
                       <Image
                         src="/AI CMO Logo.png"
                         alt="AI CMO"
@@ -379,7 +379,7 @@ export default function AICMOPage() {
                     className={cn(
                       "max-w-[85%] lg:max-w-[80%] rounded-2xl p-3 lg:p-4",
                       msg.role === "user"
-                        ? "bg-gradient-to-r from-brand-500 to-purple-500 text-white"
+                        ? "bg-gradient-to-r from-cyan-400 to-cyan-600 text-black font-semibold"
                         : "glass-base glass-mid border border-white/10 text-gray-200"
                     )}
                   >
@@ -389,7 +389,7 @@ export default function AICMOPage() {
               ))}
               {sendingMessage && (
                 <div className="flex items-start gap-3 justify-start">
-                  <div className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 via-purple-500 to-cyan-500 overflow-hidden">
+                  <div className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-cyan-600 overflow-hidden">
                     <Image
                       src="/AI CMO Logo.png"
                       alt="AI CMO"
@@ -418,13 +418,13 @@ export default function AICMOPage() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask your AI CMO about marketing strategy..."
-                className="flex-1 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-gray-500 focus:border-brand-400/50 text-sm lg:text-base"
+                className="flex-1 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-gray-500 focus:border-cyan-400/50 text-sm lg:text-base"
                 disabled={sendingMessage}
               />
               <Button
                 type="submit"
                 disabled={sendingMessage || !input.trim()}
-                className="rounded-xl bg-gradient-to-r from-brand-500 to-purple-500 hover:from-brand-600 hover:to-purple-600 px-4 lg:px-6"
+                className="rounded-xl bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 text-black font-semibold px-4 lg:px-6"
               >
                 {sendingMessage ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -486,7 +486,7 @@ export default function AICMOPage() {
                 className={cn(
                   "group relative flex items-center gap-3 rounded-xl p-3 cursor-pointer transition-colors",
                   currentConversation === conversation.id
-                    ? "bg-brand-500/20 border border-brand-400/40"
+                    ? "bg-cyan-500/20 border border-cyan-400/40"
                     : "bg-white/5 border border-white/10 hover:bg-white/10"
                 )}
                 onClick={() => {
@@ -564,7 +564,7 @@ export default function AICMOPage() {
                 className={cn(
                   "group relative flex items-center gap-3 rounded-xl p-3 cursor-pointer transition-colors",
                   currentConversation === conversation.id
-                    ? "bg-brand-500/20 border border-brand-400/40"
+                    ? "bg-cyan-500/20 border border-cyan-400/40"
                     : "bg-white/5 border border-white/10 hover:bg-white/10"
                 )}
                 onClick={() => {

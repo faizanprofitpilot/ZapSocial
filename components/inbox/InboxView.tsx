@@ -229,7 +229,7 @@ export function InboxView({ filters, messages }: InboxViewProps) {
           {secondaryTag}
         </span>
         {message.unread && (
-          <span className="rounded-full border border-brand-400/40 bg-brand-500/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+          <span className="rounded-full border border-cyan-400/40 bg-cyan-500/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
             New
           </span>
         )}
@@ -249,7 +249,7 @@ export function InboxView({ filters, messages }: InboxViewProps) {
         className={cn(
           "flex w-full flex-col gap-3 rounded-2xl border px-4 py-3 text-left transition",
           isActive
-            ? "border-brand-400/40 bg-brand-500/10 shadow-[0_0_24px_rgba(59,130,246,0.35)]"
+            ? "border-cyan-400/40 bg-cyan-500/10 shadow-[0_0_24px_rgba(59,130,246,0.35)]"
             : "border-white/10 bg-white/5 hover:border-white/20"
         )}
       >
@@ -301,7 +301,7 @@ export function InboxView({ filters, messages }: InboxViewProps) {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs uppercase tracking-wide text-brand-300">Inbox</p>
+            <p className="text-xs uppercase tracking-wide text-cyan-300">Inbox</p>
             <h2 className="text-lg font-semibold text-white">Messages & Comments</h2>
           </div>
           <FiltersDropdown
@@ -322,7 +322,7 @@ export function InboxView({ filters, messages }: InboxViewProps) {
             placeholder="Search messages..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-xl border-white/10 bg-white/5 pl-10 pr-4 text-sm text-white placeholder:text-gray-500 focus:border-brand-400/50"
+            className="w-full rounded-xl border-white/10 bg-white/5 pl-10 pr-4 text-sm text-white placeholder:text-gray-500 focus:border-cyan-400/50"
           />
         </div>
 
@@ -333,7 +333,7 @@ export function InboxView({ filters, messages }: InboxViewProps) {
               <button
                 key={chip.id}
                 onClick={() => removeFilter(chip.id)}
-                className="group flex items-center gap-1.5 rounded-full border border-brand-400/40 bg-brand-500/20 px-3 py-1 text-xs font-medium text-brand-200 transition hover:border-brand-400 hover:bg-brand-500/30"
+                className="group flex items-center gap-1.5 rounded-full border border-cyan-400/40 bg-cyan-500/20 px-3 py-1 text-xs font-medium text-cyan-200 transition hover:border-cyan-400 hover:bg-cyan-500/30"
               >
                 <span>{chip.label}</span>
                 <X className="h-3 w-3 opacity-70 group-hover:opacity-100" />
@@ -358,7 +358,7 @@ export function InboxView({ filters, messages }: InboxViewProps) {
       <section className="glass-base glass-mid flex h-[600px] flex-col gap-4 rounded-3xl p-5 shadow-lg shadow-black/30 overflow-hidden">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs uppercase tracking-wide text-brand-300">Chat</p>
+            <p className="text-xs uppercase tracking-wide text-cyan-300">Chat</p>
             <h2 className="text-lg font-semibold text-white">Thread</h2>
           </div>
           <div className="flex items-center gap-2 text-xs font-semibold text-gray-300">
@@ -384,7 +384,7 @@ export function InboxView({ filters, messages }: InboxViewProps) {
                 className={cn(
                   "flex w-full flex-col gap-3 rounded-2xl border px-4 py-3 text-left transition",
                   message.author === "me"
-                    ? "self-end border-brand-400/40 bg-brand-500/10"
+                    ? "self-end border-cyan-400/40 bg-cyan-500/10"
                     : "border-white/10 bg-white/5"
                 )}
               >
@@ -432,13 +432,13 @@ export function InboxView({ filters, messages }: InboxViewProps) {
           <div className="flex items-center justify-between text-xs text-gray-400">
             <span>{reply.length} characters</span>
             <div className="flex items-center gap-2">
-              <button className="flex items-center gap-1 rounded-full border border-brand-400/40 bg-brand-500/20 px-3 py-1 text-xs font-semibold text-white hover:border-brand-400 hover:bg-brand-500/30">
+              <button className="flex items-center gap-1 rounded-full border border-cyan-400/40 bg-cyan-500/20 px-3 py-1 text-xs font-semibold text-white hover:border-cyan-400 hover:bg-cyan-500/30">
                 <Sparkles className="h-3.5 w-3.5" /> Create AI Reply
               </button>
               <button className="flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white hover:border-white/20">
                 <Paperclip className="h-3.5 w-3.5" /> Attach
               </button>
-              <button className="flex items-center gap-1 rounded-full border border-brand-400/40 bg-brand-500/20 px-3 py-1 text-xs font-semibold text-white hover:border-brand-400 hover:bg-brand-500/30">
+              <button className="flex items-center gap-1 rounded-full border border-cyan-400/40 bg-cyan-500/20 px-3 py-1 text-xs font-semibold text-white hover:border-cyan-400 hover:bg-cyan-500/30">
                 <Send className="h-3.5 w-3.5" /> Send
               </button>
             </div>

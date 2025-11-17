@@ -29,7 +29,7 @@ const platformMeta: Record<
   instagram: {
     label: "Instagram",
     logo: "/Instagram logo.png",
-    color: "from-pink-500/30 via-rose-500/20 to-pink-600/10 text-pink-200",
+    color: "from-cyan-500/30 via-cyan-500/20 to-cyan-600/10 text-cyan-200",
   },
   linkedin: {
     label: "LinkedIn",
@@ -210,7 +210,7 @@ export function CalendarView({ events }: CalendarViewProps) {
 
     return (
       <div className={cn("group relative w-full rounded-2xl border px-3 py-2 text-xs shadow-sm transition",
-        "border-white/10 bg-white/10 hover:border-brand-500/40 hover:bg-brand-500/10")}
+        "border-white/10 bg-white/10 hover:border-cyan-500/40 hover:bg-cyan-500/10")}
       >
         <div className="flex items-center gap-2">
           {meta.logo ? (
@@ -222,7 +222,7 @@ export function CalendarView({ events }: CalendarViewProps) {
               className="flex-shrink-0"
             />
           ) : (
-            <span className="text-brand-200">•</span>
+            <span className="text-cyan-200">•</span>
           )}
           <span className="flex-1 truncate text-gray-100">{event.title}</span>
         </div>
@@ -237,10 +237,10 @@ export function CalendarView({ events }: CalendarViewProps) {
             {new Date(event.start).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}
           </div>
           <div className="mt-3 flex gap-2 text-xs">
-            <button className="flex-1 rounded-lg border border-white/10 bg-white/10 px-2 py-1 text-gray-200 hover:border-brand-400 hover:text-white">
+            <button className="flex-1 rounded-lg border border-white/10 bg-white/10 px-2 py-1 text-gray-200 hover:border-cyan-400 hover:text-white">
               <Edit className="mr-1 h-3 w-3 inline-block" /> Edit
             </button>
-            <button className="flex-1 rounded-lg border border-white/10 bg-white/10 px-2 py-1 text-gray-200 hover:border-brand-400 hover:text-white">
+            <button className="flex-1 rounded-lg border border-white/10 bg-white/10 px-2 py-1 text-gray-200 hover:border-cyan-400 hover:text-white">
               <CalendarDays className="mr-1 h-3 w-3 inline-block" /> Reschedule
             </button>
             <button className="rounded-lg border border-red-400/40 bg-red-500/10 px-2 py-1 text-red-200 hover:border-red-400 hover:text-red-100">
@@ -275,7 +275,7 @@ export function CalendarView({ events }: CalendarViewProps) {
             <ChevronRight className="h-4 w-4" />
           </button>
           <div className="text-left">
-            <p className="text-xs uppercase tracking-wide text-brand-300">Schedule</p>
+            <p className="text-xs uppercase tracking-wide text-cyan-300">Schedule</p>
             <p className="text-lg font-semibold text-white">{formattedRange}</p>
           </div>
         </div>
@@ -297,7 +297,7 @@ export function CalendarView({ events }: CalendarViewProps) {
                 className={cn(
                   "rounded-full px-3 py-1 font-medium transition",
                   view === mode.id
-                    ? "bg-gradient-to-r from-brand-500/40 via-purple-500/40 to-cyan-500/40 text-white"
+                    ? "bg-gradient-to-r from-cyan-400/40 via-cyan-500/40 to-cyan-600/40 text-white"
                     : "hover:bg-white/10 hover:text-white"
                 )}
               >
@@ -314,14 +314,14 @@ export function CalendarView({ events }: CalendarViewProps) {
             const dayEvents = filteredEvents.filter((event) => sameDay(new Date(event.start), day));
             return (
               <div key={day.toISOString()} className="flex flex-col gap-2 rounded-2xl border border-white/5 bg-white/5/60 p-3">
-                <p className="text-xs font-semibold uppercase tracking-wide text-brand-200">
+                <p className="text-xs font-semibold uppercase tracking-wide text-cyan-200">
                   {day.toLocaleDateString(undefined, { weekday: "short", day: "numeric" })}
                 </p>
                 <div className="flex flex-col gap-2">
                   {dayEvents.length === 0 ? (
                     <button
                       onClick={() => handleCreateFromSlot(day)}
-                      className="flex flex-1 items-center justify-center rounded-xl border border-dashed border-white/20 bg-white/5 py-6 text-xs text-gray-400 hover:border-brand-400/40 hover:text-white"
+                      className="flex flex-1 items-center justify-center rounded-xl border border-dashed border-white/20 bg-white/5 py-6 text-xs text-gray-400 hover:border-cyan-400/40 hover:text-white"
                     >
                       <Plus className="mr-2 h-4 w-4" /> Add Post
                     </button>
@@ -351,7 +351,7 @@ export function CalendarView({ events }: CalendarViewProps) {
             <div className="sticky top-0 z-10 h-14 bg-transparent" />
             {(view === "day" ? days : days.slice(0, 7)).map((day) => (
               <div key={day.toISOString()} className="sticky top-0 z-10 h-14 border-l border-white/5 bg-white/5/60 px-3">
-                <p className="pt-2 text-xs font-semibold uppercase tracking-wide text-brand-200">
+                <p className="pt-2 text-xs font-semibold uppercase tracking-wide text-cyan-200">
                   {day.toLocaleDateString(undefined, { weekday: "short" })}
                 </p>
                 <p className="text-sm text-gray-100">
@@ -379,7 +379,7 @@ export function CalendarView({ events }: CalendarViewProps) {
                           onClick={() => handleCreateFromSlot(
                             new Date(day.getFullYear(), day.getMonth(), day.getDate(), hour)
                           )}
-                          className="group flex h-7 w-7 items-center justify-center rounded-full border border-dashed border-white/20 bg-white/5 text-gray-400 opacity-0 transition hover:border-brand-400/40 hover:text-white group-hover:opacity-100"
+                          className="group flex h-7 w-7 items-center justify-center rounded-full border border-dashed border-white/20 bg-white/5 text-gray-400 opacity-0 transition hover:border-cyan-400/40 hover:text-white group-hover:opacity-100"
                         >
                           <Plus className="h-3 w-3" />
                         </button>

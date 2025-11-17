@@ -235,7 +235,7 @@ export default function CopilotPage() {
                           </p>
                           <div className="flex flex-wrap gap-1 mb-3">
                             {suggestion.hashtags.slice(0, 3).map((tag, i) => (
-                              <span key={i} className="text-xs text-brand-400">
+                              <span key={i} className="text-xs text-cyan-400">
                                 #{tag}
                               </span>
                             ))}
@@ -286,7 +286,7 @@ export default function CopilotPage() {
                       <div
                         className={`max-w-[80%] rounded-lg p-4 ${
                           msg.role === "user"
-                            ? "bg-gradient-brand text-white"
+                            ? "bg-gradient-to-r from-cyan-400 to-cyan-600 text-white"
                             : "glass-light text-gray-200"
                         }`}
                       >

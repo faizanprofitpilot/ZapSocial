@@ -75,7 +75,7 @@ export function FiltersDrawer({
               <div className="flex-1 space-y-6 overflow-y-auto">
                 {filters.map((group) => (
                   <div key={group.id} className="space-y-3">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-brand-200">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-cyan-200">
                       {group.label}
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -108,7 +108,7 @@ export function FiltersDrawer({
 
                 {/* Conversation Type */}
                 <div className="space-y-3">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-brand-200">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-cyan-200">
                     Conversation Type
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -122,7 +122,7 @@ export function FiltersDrawer({
                         className={cn(
                           "flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition",
                           typeFilters.includes(type.id)
-                            ? "border-brand-400/40 bg-brand-500/20 text-white shadow-[0_0_18px_rgba(59,130,246,0.35)]"
+                            ? "border-cyan-400/40 bg-cyan-500/20 text-white shadow-[0_0_18px_rgba(59,130,246,0.35)]"
                             : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:text-white"
                         )}
                       >
@@ -134,7 +134,7 @@ export function FiltersDrawer({
 
                 {/* Status Filters */}
                 <div className="space-y-3">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-brand-200">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-cyan-200">
                     Status
                   </p>
                   <div className="flex flex-wrap gap-2">

@@ -61,7 +61,7 @@ export function InstagramPreview({ caption, imageUrls = [], hashtags = [] }: Ins
       <div className="flex flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-5 text-slate-900 shadow-xl shadow-black/10">
         <header className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-pink-500 via-purple-500 to-orange-500" />
+            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-400 via-cyan-500 to-cyan-600" />
             <div className="leading-tight">
               <p className="text-sm font-semibold text-slate-900">{profileName}</p>
               <p className="text-[11px] uppercase tracking-wide text-slate-500">Los Angeles • 1m</p>

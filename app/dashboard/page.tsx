@@ -254,7 +254,7 @@ function DashboardContent() {
                 onClick={action.onClick}
                 className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-gray-200 hover:bg-white/15"
               >
-                <span className="rounded-full bg-white/10 p-1 text-brand-200 group-hover:text-brand-100">
+                <span className="rounded-full bg-white/10 p-1 text-cyan-200 group-hover:text-cyan-100">
                   {action.icon}
                 </span>
                 {action.label}
@@ -269,7 +269,7 @@ function DashboardContent() {
                 <Card className="glass-base glass-high border border-white/5 p-5 md:p-6">
                   <CardHeader className="flex flex-row items-center justify-between p-0">
                     <div className="flex items-center gap-2">
-                      <Sparkles className="h-5 w-5 text-brand-300" />
+                      <Sparkles className="h-5 w-5 text-cyan-300" />
                       <CardTitle className="text-base font-semibold text-white">Suggested Posts</CardTitle>
                     </div>
                     <Button

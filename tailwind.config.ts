@@ -13,16 +13,41 @@ const config: Config = {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			brand: {
-  				'50': '#eff6ff',
-  				'100': '#dbeafe',
-  				'200': '#bfdbfe',
-  				'300': '#93c5fd',
-  				'400': '#60a5fa',
-  				'500': '#3b82f6',
-  				'600': '#2563eb',
-  				'700': '#1d4ed8',
-  				'800': '#1e40af',
-  				'900': '#1e3a8a'
+  				'50': '#ecfeff',
+  				'100': '#cffafe',
+  				'200': '#a5f3fc',
+  				'300': '#67e8f9',
+  				'400': '#38bdf8',
+  				'500': '#0ea5e9',
+  				'600': '#0284c7',
+  				'700': '#0369a1',
+  				'800': '#075985',
+  				'900': '#0c4a6e'
+  			},
+  			cyan: {
+  				'50': '#ecfeff',
+  				'100': '#cffafe',
+  				'200': '#a5f3fc',
+  				'300': '#67e8f9',
+  				'400': '#38bdf8',
+  				'500': '#0ea5e9',
+  				'600': '#0284c7',
+  				'700': '#0369a1',
+  				'800': '#075985',
+  				'900': '#0c4a6e'
+  			},
+  			navy: {
+  				DEFAULT: '#0f172a',
+  				'50': '#f8fafc',
+  				'100': '#f1f5f9',
+  				'200': '#e2e8f0',
+  				'300': '#cbd5e1',
+  				'400': '#94a3b8',
+  				'500': '#64748b',
+  				'600': '#475569',
+  				'700': '#334155',
+  				'800': '#1e293b',
+  				'900': '#0f172a'
   			},
   			card: {
   				DEFAULT: 'hsl(var(--card))',
@@ -65,9 +90,9 @@ const config: Config = {
   		},
 			backgroundImage: {
 			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-			'gradient-conic': 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%)',
-			'gradient-brand': 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%)',
-			'gradient-brand-hover': 'linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #0891b2 100%)'
+			'gradient-conic': 'linear-gradient(135deg, #38bdf8 0%, #0ea5e9 50%, #0284c7 100%)',
+			'gradient-brand': 'linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%)',
+			'gradient-brand-hover': 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)'
 		},
   		fontFamily: {
   			sans: [
@@ -83,8 +108,8 @@ const config: Config = {
   			bold: '700'
   		},
   		boxShadow: {
-  			'brand': '0 4px 14px 0 rgba(37, 99, 235, 0.15)',
-  			'brand-lg': '0 10px 30px 0 rgba(37, 99, 235, 0.2)'
+  			'brand': '0 4px 14px 0 rgba(56, 189, 248, 0.15)',
+  			'brand-lg': '0 10px 30px 0 rgba(56, 189, 248, 0.2)'
   		},
   		animation: {
   			'shimmer': 'shimmer 2s linear infinite'

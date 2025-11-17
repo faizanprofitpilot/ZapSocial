@@ -122,14 +122,14 @@ export function Navbar({ isAuthenticated = false }: { isAuthenticated?: boolean 
               </div>
 
               <Link href="/dashboard/create" className="hidden sm:block">
-                <Button className="inline-flex gap-2 bg-gradient-brand px-4 hover:bg-gradient-brand-hover">
+                <Button className="inline-flex gap-2 bg-gradient-to-r from-cyan-400 to-cyan-600 px-4 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover">
                   <Sparkles className="h-4 w-4" />
                   Create Post
                 </Button>
               </Link>
 
               <Link href="/dashboard/create" className="sm:hidden">
-                <Button className="h-10 w-10 rounded-full bg-gradient-brand p-0 hover:bg-gradient-brand-hover">
+                <Button className="h-10 w-10 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 p-0 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover">
                   <Sparkles className="h-4 w-4" />
                 </Button>
               </Link>
@@ -146,37 +146,37 @@ export function Navbar({ isAuthenticated = false }: { isAuthenticated?: boolean 
             <div className="flex items-center gap-5">
               <Link
                 href="/#features"
-                className="text-sm font-medium text-gray-300 transition-colors hover:text-brand-400"
+                className="text-sm font-medium text-gray-300 transition-colors hover:text-cyan-400"
               >
                 Features
               </Link>
               <Link
                 href="/#pricing"
-                className="text-sm font-medium text-gray-300 transition-colors hover:text-brand-400"
+                className="text-sm font-medium text-gray-300 transition-colors hover:text-cyan-400"
               >
                 Pricing
               </Link>
               <Link
                 href="/privacy"
-                className="text-sm font-medium text-gray-300 transition-colors hover:text-brand-400"
+                className="text-sm font-medium text-gray-300 transition-colors hover:text-cyan-400"
               >
                 Privacy
               </Link>
               <Link
                 href="/terms"
-                className="text-sm font-medium text-gray-300 transition-colors hover:text-brand-400"
+                className="text-sm font-medium text-gray-300 transition-colors hover:text-cyan-400"
               >
                 Terms
               </Link>
               <span className="h-5 w-px bg-white/10" />
               <Link
                 href="/auth/signin"
-                className="text-sm font-medium text-gray-300 transition-colors hover:text-brand-400"
+                className="text-sm font-medium text-gray-300 transition-colors hover:text-cyan-400"
               >
                 Sign In
               </Link>
               <Link href="/auth/signup">
-                <Button className="bg-gradient-brand hover:bg-gradient-brand-hover">Get Started</Button>
+                <Button className="bg-gradient-to-r from-cyan-400 to-cyan-600 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover">Get Started</Button>
               </Link>
             </div>
           )}

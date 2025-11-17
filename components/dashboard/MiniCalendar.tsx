@@ -109,7 +109,7 @@ export function MiniCalendar({ scheduledPosts }: MiniCalendarProps) {
                 className={`
                   aspect-square rounded-lg border-2 transition-all cursor-pointer
                   ${today
-                    ? "border-brand-400 bg-brand-900/20"
+                    ? "border-cyan-400 bg-cyan-900/20"
                     : "border-white/5 hover:border-white/20"
                   }
                   ${posts.length > 0 || dayHolidays.length > 0 ? "bg-white/5" : ""}
@@ -118,7 +118,7 @@ export function MiniCalendar({ scheduledPosts }: MiniCalendarProps) {
                 <div className="h-full flex flex-col items-center justify-center p-0.5">
                   <span
                     className={`text-[11px] font-medium ${
-                      today ? "text-brand-400" : "text-gray-300"
+                      today ? "text-cyan-400" : "text-gray-300"
                     }`}
                   >
                     {day}

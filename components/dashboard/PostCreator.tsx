@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Sparkles } from "lucide-react";
 
 const platforms = [
-  { id: "instagram", label: "Instagram", logo: "/Instagram logo.png", color: "from-pink-500 to-rose-500" },
+  { id: "instagram", label: "Instagram", logo: "/Instagram logo.png", color: "from-cyan-400 to-cyan-600" },
   { id: "linkedin", label: "LinkedIn", logo: "/Linkedin logo.png", color: "from-blue-500 to-blue-600" },
   { id: "facebook", label: "Facebook", logo: "/Facebook logo.png", color: "from-blue-600 to-blue-700" },
 ];
@@ -121,7 +121,7 @@ export function PostCreator({ onGenerate, initialTopic, initialPlatform }: PostC
               id="generateImage"
               checked={generateImage}
               onChange={(e) => setGenerateImage(e.target.checked)}
-              className="w-4 h-4 rounded border-white/20 bg-white/5 text-brand-500 focus:ring-brand-500"
+              className="w-4 h-4 rounded border-white/20 bg-white/5 text-cyan-500 focus:ring-brand-500"
             />
             <label htmlFor="generateImage" className="text-sm text-gray-300">
               Generate AI image
@@ -136,7 +136,7 @@ export function PostCreator({ onGenerate, initialTopic, initialPlatform }: PostC
 
           <Button
             type="submit"
-            className="w-full h-11 bg-gradient-brand hover:bg-gradient-brand-hover"
+            className="w-full h-11 bg-gradient-to-r from-cyan-400 to-cyan-600 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover"
             disabled={loading}
           >
             {loading ? (

@@ -26,7 +26,7 @@ export function DashboardTabs() {
               className={cn(
                 "whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium",
                 isActive
-                  ? "border-purple-500 text-purple-600"
+                  ? "border-cyan-400 text-cyan-400"
                   : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
               )}
             >

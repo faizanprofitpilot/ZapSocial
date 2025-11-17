@@ -112,7 +112,7 @@ export function Sidebar() {
                 className={cn(
                   "flex items-center gap-3 rounded-2xl px-3 py-2 text-sm font-medium transition-colors duration-200",
                   isActive
-                    ? "bg-gradient-to-r from-brand-500/30 via-purple-500/25 to-cyan-500/20 text-white shadow-[0_0_25px_rgba(59,130,246,0.25)]"
+                    ? "bg-cyan-500/20 border-l-2 border-cyan-400 text-[#38BDF8] shadow-[0_0_25px_rgba(56,189,248,0.25)]"
                     : "text-gray-300 hover:text-gray-100 hover:bg-white/5"
                 )}
               >
@@ -140,7 +140,7 @@ export function Sidebar() {
                 className={cn(
                   "flex items-center gap-3 rounded-2xl px-3 py-2 text-sm font-medium transition-colors duration-200",
                   isActive
-                    ? "bg-gradient-to-r from-brand-500/30 via-purple-500/25 to-cyan-500/20 text-white shadow-[0_0_25px_rgba(59,130,246,0.25)]"
+                    ? "bg-cyan-500/20 border-l-2 border-cyan-400 text-[#38BDF8] shadow-[0_0_25px_rgba(56,189,248,0.25)]"
                     : "text-gray-300 hover:text-gray-100 hover:bg-white/5"
                 )}
               >
@@ -165,7 +165,7 @@ export function Sidebar() {
 
               return (
                 <>
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-cyan-500 text-sm font-semibold text-white shadow-lg shadow-brand-500/30">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 text-sm font-semibold text-black shadow-lg shadow-cyan-500/30">
                     {avatarInitial}
                   </div>
                   <div className="min-w-0">

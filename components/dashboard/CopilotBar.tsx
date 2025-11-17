@@ -56,7 +56,7 @@ export function CopilotBar() {
       <div className="fixed bottom-20 right-4 md:right-6 z-40">
         <Button
           onClick={() => setIsExpanded(true)}
-          className="bg-gradient-brand hover:bg-gradient-brand-hover shadow-lg rounded-full h-14 px-6"
+          className="bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 shadow-lg rounded-full h-14 px-6 text-black font-semibold"
         >
           <Bot className="w-5 h-5 mr-2" />
           Ask AI Copilot
@@ -71,7 +71,7 @@ export function CopilotBar() {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-3 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <Bot className="w-5 h-5 text-brand-400" />
+            <Bot className="w-5 h-5 text-cyan-400" />
             <h3 className="text-sm font-semibold text-gray-50">AI Copilot</h3>
           </div>
           <Button
@@ -99,7 +99,7 @@ export function CopilotBar() {
               <div
                 className={`max-w-[80%] rounded-lg p-3 ${
                   msg.role === "user"
-                    ? "bg-gradient-brand text-white"
+                    ? "bg-gradient-to-r from-cyan-400 to-cyan-600 text-white"
                     : "glass-light text-gray-200"
                 }`}
               >

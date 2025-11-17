@@ -18,9 +18,9 @@ export function ProgressSteps({ steps }: ProgressStepsProps) {
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${
                 step.status === "completed"
-                  ? "bg-brand-500 border-brand-500 text-white"
+                  ? "bg-cyan-500 border-cyan-500 text-white"
                   : step.status === "active"
-                  ? "border-brand-500 text-brand-400 animate-pulse"
+                  ? "border-cyan-500 text-cyan-400 animate-pulse"
                   : "border-gray-600 text-gray-500"
               }`}
             >
@@ -34,7 +34,7 @@ export function ProgressSteps({ steps }: ProgressStepsProps) {
             </div>
             <span
               className={`text-xs font-medium ${
-                step.status === "active" ? "text-brand-400" : step.status === "completed" ? "text-gray-300" : "text-gray-500"
+                step.status === "active" ? "text-cyan-400" : step.status === "completed" ? "text-gray-300" : "text-gray-500"
               }`}
             >
               {step.label}
@@ -43,7 +43,7 @@ export function ProgressSteps({ steps }: ProgressStepsProps) {
           {index < steps.length - 1 && (
             <div
               className={`h-0.5 flex-1 transition-all ${
-                step.status === "completed" ? "bg-brand-500" : "bg-gray-700"
+                step.status === "completed" ? "bg-cyan-500" : "bg-gray-700"
               }`}
             />
           )}

@@ -77,15 +77,15 @@ export function FiltersDropdown({
         className={cn(
           "flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm transition",
           open
-            ? "border-brand-400/50 bg-brand-500/20 text-white"
+            ? "border-cyan-400/50 bg-cyan-500/20 text-white"
             : "border-white/10 bg-white/5 text-gray-200 hover:bg-white/10 hover:text-white hover:border-white/20",
-          activeCount > 0 && "border-brand-400/40 bg-brand-500/10"
+          activeCount > 0 && "border-cyan-400/40 bg-cyan-500/10"
         )}
       >
         <Filter className="h-4 w-4" />
         <span className="hidden sm:inline">Filters</span>
         {activeCount > 0 && (
-          <span className="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-500 text-[10px] font-semibold text-white">
+          <span className="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-cyan-500 text-[10px] font-semibold text-white">
             {activeCount}
           </span>
         )}
@@ -125,7 +125,7 @@ export function FiltersDropdown({
               <div className="space-y-5">
                 {filters.map((group) => (
                   <div key={group.id} className="space-y-2.5">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-brand-200">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-cyan-200">
                       {group.label}
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -162,7 +162,7 @@ export function FiltersDropdown({
 
                 {/* Conversation Type */}
                 <div className="space-y-2.5">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-brand-200">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-cyan-200">
                     Conversation Type
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -179,7 +179,7 @@ export function FiltersDropdown({
                           className={cn(
                             "flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
                             isActive
-                              ? "border-brand-400/40 bg-brand-500/20 text-white shadow-[0_0_12px_rgba(59,130,246,0.4)] scale-105"
+                              ? "border-cyan-400/40 bg-cyan-500/20 text-white shadow-[0_0_12px_rgba(59,130,246,0.4)] scale-105"
                               : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
                           )}
                         >
@@ -192,7 +192,7 @@ export function FiltersDropdown({
 
                 {/* Status Filters */}
                 <div className="space-y-2.5">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-brand-200">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-cyan-200">
                     Status
                   </p>
                   <div className="flex flex-wrap gap-2">

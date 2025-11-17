@@ -68,7 +68,7 @@ export function RangeDropdown({ value = "30d", onChange, options = DEFAULT_RANGE
         onClick={() => setOpen((prev) => !prev)}
         className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 text-gray-200 hover:bg-white/10"
       >
-        <CalendarRange className="h-4 w-4 text-brand-200" />
+        <CalendarRange className="h-4 w-4 text-cyan-200" />
         <span>{activeLabel}</span>
       </Button>
 

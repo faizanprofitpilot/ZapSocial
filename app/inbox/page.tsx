@@ -7,7 +7,7 @@ const filterGroups: InboxFilterGroup[] = [
     id: "channels",
     label: "Channels",
     items: [
-      { id: "instagram", label: "Instagram", color: "border-pink-400/40 bg-pink-500/15 text-pink-200" },
+      { id: "instagram", label: "Instagram", color: "border-cyan-400/40 bg-cyan-500/15 text-cyan-200" },
       { id: "linkedin", label: "LinkedIn", color: "border-blue-400/40 bg-blue-500/15 text-blue-200" },
       { id: "facebook", label: "Facebook", color: "border-blue-600/40 bg-blue-600/15 text-blue-200" },
       { id: "x", label: "X", color: "border-gray-400/40 bg-gray-500/20 text-gray-200" },
@@ -19,7 +19,7 @@ const filterGroups: InboxFilterGroup[] = [
     items: [
       { id: "product", label: "Product Launch", color: "border-emerald-400/40 bg-emerald-500/15 text-emerald-200" },
       { id: "support", label: "Support", color: "border-amber-400/40 bg-amber-500/15 text-amber-200" },
-      { id: "priority", label: "Priority", color: "border-rose-400/40 bg-rose-500/15 text-rose-200" },
+      { id: "priority", label: "Priority", color: "border-cyan-400/40 bg-cyan-500/15 text-cyan-200" },
     ],
   },
 ];
@@ -75,7 +75,7 @@ const inboxMessages: InboxMessage[] = [
         id: "th-3",
         author: "client",
         name: "Nova Media",
-        avatarColor: "linear-gradient(135deg,#ec4899,#a855f7)",
+        avatarColor: "linear-gradient(135deg,#38bdf8,#0ea5e9)",
         content: "Could you send over a weekly snapshot of engagement for LinkedIn?",
         timestamp: "Today • 8:11 AM",
       },
@@ -99,7 +99,7 @@ const inboxMessages: InboxMessage[] = [
     status: "resolved",
     unread: false,
     tags: [
-      { id: "priority", label: "Priority", color: "border-rose-400/40 bg-rose-500/15 text-rose-200" },
+      { id: "priority", label: "Priority", color: "border-cyan-400/40 bg-cyan-500/15 text-cyan-200" },
     ],
     type: "message",
     thread: [

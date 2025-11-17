@@ -22,7 +22,7 @@ const platformTokens: Record<
 > = {
   instagram: {
     label: "Instagram",
-    accent: "from-pink-500 via-purple-500 to-orange-500",
+    accent: "from-cyan-400 via-cyan-500 to-cyan-600",
     logo: "/Instagram logo.png",
   },
   facebook: { label: "Facebook", accent: "from-blue-500 to-blue-700", logo: "/Facebook logo.png" },

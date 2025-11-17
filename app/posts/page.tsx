@@ -56,7 +56,7 @@ export default async function PostsPage() {
                   <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <p className="text-gray-400 mb-6 text-lg">Your library is empty. Create your first post!</p>
                   <Link href="/dashboard/create">
-                    <Button className="bg-gradient-brand hover:bg-gradient-brand-hover">
+                    <Button className="bg-gradient-to-r from-cyan-400 to-cyan-600 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover">
                       Create Content
                     </Button>
                   </Link>
@@ -67,11 +67,11 @@ export default async function PostsPage() {
                 {posts.map((post) => (
                   <Card
                     key={post.id}
-                    className="group hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-brand-lg hover:border-brand-400/50"
+                    className="group hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-cyan-lg hover:border-cyan-400/50"
                   >
                     <CardHeader>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="flex items-center gap-2 px-2 py-1 bg-brand-900/50 text-brand-300 rounded-full text-xs font-medium uppercase">
+                        <span className="flex items-center gap-2 px-2 py-1 bg-cyan-900/50 text-cyan-300 rounded-full text-xs font-medium uppercase">
                           {platformLogos[post.platform] && (
                             <Image
                               src={platformLogos[post.platform]}
@@ -112,7 +112,7 @@ export default async function PostsPage() {
                       {post.hashtags && post.hashtags.length > 0 && (
                         <div className="flex flex-wrap gap-1">
                           {post.hashtags.slice(0, 3).map((tag: string, idx: number) => (
-                            <span key={idx} className="text-xs text-brand-400">#{tag}</span>
+                            <span key={idx} className="text-xs text-cyan-400">#{tag}</span>
                           ))}
                           {post.hashtags.length > 3 && (
                             <span className="text-xs text-gray-500">+{post.hashtags.length - 3}</span>

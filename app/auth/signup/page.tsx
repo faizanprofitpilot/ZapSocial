@@ -70,7 +70,7 @@ export default function SignUpPage() {
     <div className="min-h-screen bg-[#0f172a] flex items-center justify-center p-4 pt-24">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-semibold bg-gradient-brand bg-clip-text text-transparent">
+          <CardTitle className="text-3xl font-semibold bg-gradient-to-r from-cyan-400 to-cyan-600 bg-clip-text text-transparent">
             Create an account
           </CardTitle>
           <CardDescription>
@@ -117,7 +117,7 @@ export default function SignUpPage() {
           <CardFooter className="flex flex-col space-y-4">
             <Button 
               type="submit" 
-              className="w-full h-11 bg-gradient-brand hover:bg-gradient-brand-hover" 
+              className="w-full h-11 bg-gradient-to-r from-cyan-400 to-cyan-600 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover" 
               disabled={loading}
             >
               {loading ? "Creating account..." : "Sign Up"}
@@ -160,7 +160,7 @@ export default function SignUpPage() {
               {loading ? "Signing up..." : "Sign up with Google"}
             </Button>
 
-            <Link href="/auth/signin" className="text-sm text-gray-300 hover:text-brand-400 transition-colors">
+            <Link href="/auth/signin" className="text-sm text-gray-300 hover:text-cyan-400 transition-colors">
               Already have an account? Sign in
             </Link>
           </CardFooter>

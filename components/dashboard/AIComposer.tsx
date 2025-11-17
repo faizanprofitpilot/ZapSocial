@@ -52,7 +52,7 @@ type GeneratedPost = {
 };
 
 const platforms: Platform[] = [
-  { id: "instagram", label: "Instagram", logo: "/Instagram logo.png", gradient: "from-pink-500 to-rose-500" },
+  { id: "instagram", label: "Instagram", logo: "/Instagram logo.png", gradient: "from-cyan-400 to-cyan-600" },
   { id: "linkedin", label: "LinkedIn", logo: "/Linkedin logo.png", gradient: "from-blue-500 to-blue-600" },
   { id: "facebook", label: "Facebook", logo: "/Facebook logo.png", gradient: "from-blue-600 to-blue-700" },
 ];
@@ -819,14 +819,14 @@ export function AIComposer() {
                   className={cn(
                     "group relative flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition",
                     active
-                      ? "border-brand-400/60 bg-brand-500/20 text-white shadow-lg shadow-brand-500/20"
+                      ? "border-cyan-400/60 bg-cyan-500/20 text-white shadow-lg shadow-cyan-500/20"
                       : "border-white/10 bg-white/5 text-gray-400 hover:border-white/20 hover:text-white"
                   )}
                 >
                   {getPlatformBadge(platform.id, 16)}
                   <span>{platform.label}</span>
                   {active && (
-                    <span className="absolute -right-1.5 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full border-2 border-[#0f172a] bg-brand-400 text-[#0f172a] shadow-sm">
+                    <span className="absolute -right-1.5 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full border-2 border-[#0f172a] bg-cyan-400 text-[#0f172a] shadow-sm">
                       <CloseIcon className="h-2.5 w-2.5" />
                     </span>
                   )}
@@ -866,7 +866,7 @@ export function AIComposer() {
                           className={cn(
                             "flex w-full items-center justify-between gap-2 rounded-xl border px-3 py-2 text-left text-sm font-semibold transition",
                             isOpen
-                              ? "border-brand-400/60 bg-brand-500/20 text-white"
+                              ? "border-cyan-400/60 bg-cyan-500/20 text-white"
                               : "border-white/15 bg-white/10 text-gray-200 hover:border-white/30 hover:text-white"
                           )}
                         >
@@ -891,7 +891,7 @@ export function AIComposer() {
                                   "group flex w-[90%] items-center gap-2 rounded-lg border px-3 py-1.5 text-left text-xs transition",
                                   actionsLoading
                                     ? "border-white/5 bg-white/5 text-gray-500 cursor-not-allowed"
-                                    : "border-white/10 bg-white/10 text-gray-200 hover:border-brand-400/40 hover:text-white"
+                                    : "border-white/10 bg-white/10 text-gray-200 hover:border-cyan-400/40 hover:text-white"
                                 )}
                               >
                                 {action.icon && (
@@ -917,7 +917,7 @@ export function AIComposer() {
             <Button
               variant="ghost"
               size="sm"
-              className="text-xs text-brand-300 hover:text-brand-200"
+              className="text-xs text-cyan-300 hover:text-cyan-200"
               onClick={() => router.push("/copilot")}
             >
               <Sparkles className="mr-2 h-4 w-4" /> Open Copilot
@@ -983,7 +983,7 @@ export function AIComposer() {
                     "flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium transition",
                     actionsLoading
                       ? "border-white/10 bg-white/5 text-gray-500 cursor-not-allowed"
-                      : "border-brand-400/50 bg-brand-500/20 text-brand-200 hover:border-brand-400 hover:bg-brand-500/30 hover:text-brand-100"
+                      : "border-cyan-400/50 bg-cyan-500/20 text-cyan-200 hover:border-cyan-400 hover:bg-cyan-500/30 hover:text-cyan-100"
                   )}
                 >
                   {actionsLoading ? (
@@ -1074,7 +1074,7 @@ export function AIComposer() {
           <Button
             onClick={handleGeneratePosts}
             disabled={loading}
-            className="inline-flex flex-1 min-w-[200px] items-center justify-center gap-2 rounded-full bg-gradient-brand py-3 text-base font-semibold text-white shadow-brand hover:bg-gradient-brand-hover"
+            className="inline-flex flex-1 min-w-[200px] items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 py-3 text-base font-semibold text-black shadow-md shadow-cyan-500/10 hover:from-cyan-500 hover:to-cyan-700"
           >
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Zap className="h-4 w-4" />}
             {loading ? "Posting" : "Post Now"}
@@ -1178,7 +1178,7 @@ export function AIComposer() {
               <Button
                 onClick={handleScheduleConfirm}
                 disabled={scheduleLoading}
-                className="bg-gradient-brand hover:bg-gradient-brand-hover"
+                className="bg-gradient-to-r from-cyan-400 to-cyan-600 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover"
               >
                 {scheduleLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Calendar className="h-4 w-4" />}
                 <span className="ml-2">Confirm Schedule</span>

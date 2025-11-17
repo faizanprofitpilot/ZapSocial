@@ -141,7 +141,7 @@ export default async function AnalyticsPage() {
               <Button
                 variant="outline"
                 size="sm"
-                className="inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-4 text-sm font-medium text-brand-100 hover:bg-brand-500/20"
+                className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 text-sm font-medium text-cyan-100 hover:bg-cyan-500/20"
               >
                 <Download className="h-4 w-4" />
                 Export report
@@ -157,7 +157,7 @@ export default async function AnalyticsPage() {
                       <h3 className="text-3xl font-semibold text-white">{stats.totalFollowers.toLocaleString()}</h3>
                       <p className="text-xs text-slate-400">Across connected profiles</p>
                     </div>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/20 text-brand-200">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/20 text-cyan-200">
                       <Users className="h-4 w-4" />
                     </div>
                   </div>
@@ -210,7 +210,7 @@ export default async function AnalyticsPage() {
                       <h3 className="text-3xl font-semibold text-white">162.8K</h3>
                       <p className="text-xs text-slate-400">Likes, saves, shares</p>
                     </div>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/20 text-purple-200">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/20 text-cyan-200">
                       <Heart className="h-4 w-4" />
                     </div>
                   </div>
@@ -233,7 +233,7 @@ export default async function AnalyticsPage() {
 
             <Card className="mt-6 glass-base glass-mid border border-white/5 p-6 md:p-8 shadow-lg">
               <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/20 text-brand-200">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/20 text-cyan-200">
                   <Sparkles className="h-4 w-4" />
                 </div>
                 <div>

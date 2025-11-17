@@ -54,8 +54,8 @@ export function TodaySummary({ posts, metrics, inboxCount = 0 }: TodaySummaryPro
       label: "Drafts Needing Review",
       value: draftsCount,
       icon: FileText,
-      gradient: "from-purple-500/20 to-purple-600/20",
-      iconColor: "text-purple-400",
+      gradient: "from-cyan-500/20 to-cyan-600/20",
+      iconColor: "text-cyan-400",
     },
     {
       label: "Engagement (last 24h)",

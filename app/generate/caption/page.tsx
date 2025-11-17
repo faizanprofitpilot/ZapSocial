@@ -80,7 +80,7 @@ export default function CaptionGeneratorPage() {
 
               <Button 
                 type="submit" 
-                className="w-full h-12 bg-gradient-brand hover:bg-gradient-brand-hover" 
+                className="w-full h-12 bg-gradient-to-r from-cyan-400 to-cyan-600 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover" 
                 disabled={loading}
               >
                 {loading ? (

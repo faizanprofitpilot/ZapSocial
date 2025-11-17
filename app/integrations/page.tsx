@@ -32,7 +32,7 @@ type Integration = {
 };
 
 const platforms = [
-  { id: "instagram", label: "Instagram", logo: "/Instagram logo.png", color: "from-pink-500 to-rose-500" },
+  { id: "instagram", label: "Instagram", logo: "/Instagram logo.png", color: "from-cyan-400 to-cyan-600" },
   { id: "linkedin", label: "LinkedIn", logo: "/Linkedin logo.png", color: "from-blue-500 to-blue-600" },
   { id: "facebook", label: "Facebook", logo: "/Facebook logo.png", color: "from-blue-600 to-blue-700", metaLabel: "Meta" },
 ];
@@ -247,7 +247,7 @@ export default function IntegrationsPage() {
                 const showDualIcons = isMeta;
 
                 return (
-                  <Card key={platform.id} className="hover:shadow-brand-lg transition-all duration-300">
+                  <Card key={platform.id} className="hover:shadow-cyan-lg transition-all duration-300">
                     <CardHeader>
                       {showDualIcons ? (
                         <div className="flex items-center gap-2 mb-4">
@@ -264,7 +264,7 @@ export default function IntegrationsPage() {
                             )}
                           </div>
                           {/* Instagram Icon */}
-                          <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-pink-500 to-rose-500">
+                          <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-cyan-400 to-cyan-600">
                             <Image
                               src="/Instagram logo.png"
                               alt="Instagram"

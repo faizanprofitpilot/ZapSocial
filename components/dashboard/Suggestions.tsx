@@ -86,7 +86,7 @@ export function Suggestions() {
           <CardContent className="space-y-3">
             {currentBlogs.map((topic) => (
               <div key={topic} className="flex items-start gap-3 p-3 rounded-lg glass-light border border-white/10">
-                <span className="mt-0.5 text-brand-400">•</span>
+                <span className="mt-0.5 text-cyan-400">•</span>
                 <span className="text-sm text-gray-200">{topic}</span>
               </div>
             ))}
@@ -127,7 +127,7 @@ export function Suggestions() {
                     </div>
                     <Button
                       size="sm"
-                      className="rounded-full bg-gradient-brand text-xs hover:bg-gradient-brand-hover"
+                      className="rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 text-xs hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover"
                       onClick={() => {
                         const params = new URLSearchParams({
                           platform: item.platform,
@@ -140,16 +140,16 @@ export function Suggestions() {
                     </Button>
                   </div>
                   <p className="text-sm text-gray-200 leading-snug">{item.text}</p>
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-brand-300">
-                    <span className="rounded-full bg-brand-500/10 px-2 py-1">#{item.platform}</span>
-                    <span className="rounded-full bg-brand-500/10 px-2 py-1">#{item.label.replace(/\s+/g, "")}</span>
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-cyan-300">
+                    <span className="rounded-full bg-cyan-500/10 px-2 py-1">#{item.platform}</span>
+                    <span className="rounded-full bg-cyan-500/10 px-2 py-1">#{item.label.replace(/\s+/g, "")}</span>
                   </div>
                 </Card>
               ))}
             </div>
             <div className="mt-4 flex gap-3">
               <Link href="/dashboard/create">
-                <Button className="bg-gradient-brand hover:bg-gradient-brand-hover">Generate captions</Button>
+                <Button className="bg-gradient-to-r from-cyan-400 to-cyan-600 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover">Generate captions</Button>
               </Link>
             </div>
           </CardContent>

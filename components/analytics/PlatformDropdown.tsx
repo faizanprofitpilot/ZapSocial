@@ -84,7 +84,7 @@ export function PlatformDropdown({
         onClick={() => setOpen((prev) => !prev)}
         className="flex items-center gap-2 rounded-full border-white/10 bg-white/10 text-gray-100 hover:bg-white/20"
       >
-        <LineChartIcon className="h-4 w-4 text-brand-200" />
+        <LineChartIcon className="h-4 w-4 text-cyan-200" />
         <span className="whitespace-nowrap">{selected}</span>
       </Button>
 
@@ -99,7 +99,7 @@ export function PlatformDropdown({
             onClick={() => handleSelect(null)}
             className="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 text-sm text-gray-200 hover:bg-white/10"
           >
-            <LineChartIcon className="h-4 w-4 text-brand-200" />
+            <LineChartIcon className="h-4 w-4 text-cyan-200" />
             <span className="flex-1">All platforms</span>
             {selected === placeholder && <Check className="h-4 w-4 text-emerald-300" />}
           </div>

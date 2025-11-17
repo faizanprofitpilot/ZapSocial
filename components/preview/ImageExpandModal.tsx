@@ -103,6 +103,7 @@ export function ImageExpandModal({ imageUrls, initialIndex = 0, isOpen, onClose 
       }}
     >
       {/* Centered image */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={currentImage}
         alt={`Expanded image ${currentIndex + 1} of ${imageUrls.length}`}

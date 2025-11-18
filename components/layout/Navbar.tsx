@@ -122,14 +122,14 @@ export function Navbar({ isAuthenticated = false }: { isAuthenticated?: boolean 
               </div>
 
               <Link href="/dashboard/create" className="hidden sm:block">
-                <Button className="inline-flex gap-2 bg-gradient-to-r from-cyan-400 to-cyan-600 px-4 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover">
+                <Button className="inline-flex gap-2 bg-cyan-500 px-4 hover:bg-cyan-600">
                   <Sparkles className="h-4 w-4" />
                   Create Post
                 </Button>
               </Link>
 
               <Link href="/dashboard/create" className="sm:hidden">
-                <Button className="h-10 w-10 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 p-0 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover">
+                <Button className="h-10 w-10 rounded-full bg-cyan-500 p-0 hover:bg-cyan-600">
                   <Sparkles className="h-4 w-4" />
                 </Button>
               </Link>

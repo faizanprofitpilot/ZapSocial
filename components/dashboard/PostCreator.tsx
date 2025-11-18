@@ -136,7 +136,7 @@ export function PostCreator({ onGenerate, initialTopic, initialPlatform }: PostC
 
           <Button
             type="submit"
-            className="w-full h-11 bg-gradient-to-r from-cyan-400 to-cyan-600 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover"
+            className="w-full h-11 bg-cyan-500 hover:bg-cyan-600"
             disabled={loading}
           >
             {loading ? (

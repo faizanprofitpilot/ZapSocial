@@ -2,7 +2,6 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ZapierWebhookForm } from "@/components/settings/ZapierWebhookForm";
-import { CommentAutomationForm } from "@/components/settings/CommentAutomationForm";
 import { Sidebar } from "@/components/layout/Sidebar";
 
 export default async function SettingsPage() {
@@ -25,7 +24,6 @@ export default async function SettingsPage() {
         <div className="md:flex md:gap-8">
           <Sidebar />
           <div className="flex-1 space-y-6">
-            <CommentAutomationForm />
             <Card>
               <CardHeader>
                 <CardTitle className="text-xl">Zapier Integration</CardTitle>

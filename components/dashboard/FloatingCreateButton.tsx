@@ -19,7 +19,7 @@ export function FloatingCreateButton() {
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="fixed bottom-6 right-6 md:right-6 z-50 bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 shadow-lg rounded-full h-14 w-14 p-0 transition-all duration-300 hover:scale-110"
+      className="fixed bottom-6 right-6 md:right-6 z-50 bg-cyan-500 hover:bg-cyan-600 shadow-lg rounded-full h-14 w-14 p-0 transition-all duration-300 hover:scale-110"
       title="Create New Post"
     >
       <Plus className={`w-6 h-6 transition-transform duration-300 ${isHovered ? "rotate-90" : ""}`} />

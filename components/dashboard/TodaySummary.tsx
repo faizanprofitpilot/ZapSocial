@@ -75,35 +75,34 @@ export function TodaySummary({ posts, metrics, inboxCount = 0 }: TodaySummaryPro
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {statCards.map((stat, idx) => {
         const Icon = stat.icon;
         return (
           <Card
             key={idx}
             className={`
-              glass-base glass-low border border-white/5 p-4
+              glass-base glass-low border border-white/5
               bg-gradient-to-br ${stat.gradient}
               transition-all duration-300
               hover:border-white/20 hover:bg-white/10 hover:-translate-y-0.5
+              h-full flex flex-col
             `}
           >
-            <div className="flex items-start justify-between">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-2">
-                  <Icon className={`h-4 w-4 ${stat.iconColor} flex-shrink-0`} />
-                  <p className="text-xs font-medium text-gray-400 uppercase tracking-wide truncate">
-                    {stat.label}
-                  </p>
-                </div>
-                <p
-                  className={`text-2xl font-bold text-white ${
-                    stat.valueClass || ""
-                  }`}
-                >
-                  {stat.value}
+            <div className="flex flex-col h-full p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <Icon className={`h-4 w-4 ${stat.iconColor} flex-shrink-0`} />
+                <p className="text-xs font-medium text-gray-400 uppercase tracking-wide truncate">
+                  {stat.label}
                 </p>
               </div>
+              <p
+                className={`text-2xl font-bold text-white mt-auto ${
+                  stat.valueClass || ""
+                }`}
+              >
+                {stat.value}
+              </p>
             </div>
           </Card>
         );

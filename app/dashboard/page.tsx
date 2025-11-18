@@ -3,12 +3,7 @@
 import { useState, useEffect, Suspense, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { MiniCalendar, WeeklySummary } from "@/components/dashboard/MiniCalendar";
-import { UpcomingPosts } from "@/components/dashboard/UpcomingPosts";
 import { TodaySummary } from "@/components/dashboard/TodaySummary";
-import { RecentPublishingActivity } from "@/components/dashboard/RecentPublishingActivity";
-import { AIEngagementSummary } from "@/components/dashboard/AIEngagementSummary";
-import { CopilotBar } from "@/components/dashboard/CopilotBar";
 import { FloatingCreateButton } from "@/components/dashboard/FloatingCreateButton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -20,7 +15,6 @@ import {
   RefreshCw,
   Loader2,
 } from "lucide-react";
-import { getCurrentAndNextYearHolidays } from "@/lib/holidays";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
@@ -36,7 +30,20 @@ function DashboardContent() {
   // Create Supabase client only at runtime, never during build
   const [supabase, setSupabase] = useState<ReturnType<typeof createClient> | null>(null);
   
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  // Load suggestions from localStorage on mount, or initialize as empty
+  const [suggestions, setSuggestions] = useState<Suggestion[]>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('dashboard_suggestions');
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch (e) {
+          return [];
+        }
+      }
+    }
+    return [];
+  });
   const [posts, setPosts] = useState<any[]>([]);
   const [schedules, setSchedules] = useState<any[]>([]);
   const [notifications, setNotifications] = useState<any[]>([]);
@@ -75,6 +82,11 @@ function DashboardContent() {
           : [...data.suggestions, facebookFallback];
 
         setSuggestions(normalizedSuggestions);
+        
+        // Store in localStorage so they persist across page loads
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('dashboard_suggestions', JSON.stringify(normalizedSuggestions));
+        }
       }
     } catch (error) {
       console.error("Failed to load suggestions:", error);
@@ -108,8 +120,14 @@ function DashboardContent() {
         .eq("user_id", user.id)
         .order("datetime", { ascending: true });
 
-      // Load suggestions
-      await loadSuggestions();
+      // Load suggestions only if they don't exist (first time visit)
+      // Check if localStorage has suggestions, if not, fetch new ones
+      if (typeof window !== 'undefined') {
+        const hasStoredSuggestions = localStorage.getItem('dashboard_suggestions');
+        if (!hasStoredSuggestions) {
+          await loadSuggestions();
+        }
+      }
 
       // Load notifications from connected platforms
       try {
@@ -148,7 +166,8 @@ function DashboardContent() {
     };
 
     loadData();
-  }, [supabase, loadSuggestions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [supabase]);
 
   const getPlatformLogo = (platform: string) => {
     switch (platform) {
@@ -212,7 +231,7 @@ function DashboardContent() {
     return entries.length > 0 ? entries[0][0] : "instagram";
   }, [platformCounts]);
 
-  // Format schedules for mini calendar
+  // Format schedules for weekly summary
   const calendarEvents = schedules?.map((schedule: any) => ({
     id: schedule.id,
     title: schedule.posts?.caption?.substring(0, 30) || "Scheduled Post",
@@ -220,16 +239,7 @@ function DashboardContent() {
     platform: schedule.platform,
   })) || [];
 
-  const holidays = getCurrentAndNextYearHolidays();
-  const allCalendarEvents = [
-    ...calendarEvents,
-    ...holidays.map((h) => ({
-      id: h.id,
-      title: h.title,
-      start: h.start,
-      platform: "holiday",
-    })),
-  ];
+  const allCalendarEvents = calendarEvents;
 
   if (loading) {
     return (
@@ -242,10 +252,8 @@ function DashboardContent() {
   return (
     <div className="min-h-screen bg-[#0f172a] pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-6">
-        <div className="space-y-4">
-          {/* Today at a Glance Summary */}
-          <TodaySummary posts={posts} inboxCount={notifications.length} />
-
+        <div className="space-y-6">
+          {/* Quick Actions */}
           <div className="flex flex-wrap items-center gap-3">
             {quickActions.map((action) => (
               <Button
@@ -253,9 +261,9 @@ function DashboardContent() {
                 variant="ghost"
                 size="sm"
                 onClick={action.onClick}
-                className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-gray-200 hover:bg-white/15"
+                className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-medium text-gray-200 hover:bg-white/15 transition-all duration-200"
               >
-                <span className="rounded-full bg-white/10 p-1 text-cyan-200 group-hover:text-cyan-100">
+                <span className="rounded-full bg-white/10 p-1 text-cyan-200 group-hover:text-cyan-100 transition-colors">
                   {action.icon}
                 </span>
                 {action.label}
@@ -264,11 +272,16 @@ function DashboardContent() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2fr_1fr]">
-            <div className="space-y-4">
+          {/* Today at a Glance Summary */}
+          <TodaySummary posts={posts} inboxCount={notifications.length} />
+
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[2fr_1fr]">
+            {/* Suggested Posts */}
+            <div>
               {suggestions.length > 0 && (
-                <Card className="glass-base glass-high border border-white/5 p-5 md:p-6">
-                  <CardHeader className="flex flex-row items-center justify-between p-0">
+                <Card className="glass-base glass-high border border-white/10 h-full">
+                  <CardHeader className="flex flex-row items-center justify-between pb-4 px-6 pt-6">
                     <div className="flex items-center gap-2">
                       <Sparkles className="h-5 w-5 text-cyan-300" />
                       <CardTitle className="text-base font-semibold text-white">Suggested Posts</CardTitle>
@@ -278,7 +291,7 @@ function DashboardContent() {
                       size="sm"
                       onClick={handleRefreshSuggestions}
                       disabled={refreshingSuggestions}
-                      className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-gray-200 hover:border-white/20 hover:bg-white/10 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-gray-200 hover:border-white/20 hover:bg-white/10 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
                     >
                       {refreshingSuggestions ? (
                         <>
@@ -293,25 +306,25 @@ function DashboardContent() {
                       )}
                     </Button>
                   </CardHeader>
-                  <CardContent className="p-0 pt-5">
+                  <CardContent className="px-6 pb-6">
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                       {suggestions.map((suggestion, idx) => {
                         const logo = getPlatformLogo(suggestion.platform);
                         return (
                           <Card
                             key={idx}
-                            className="glass-base glass-mid border border-white/5 p-4 min-h-[120px] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 cursor-pointer"
+                            className="glass-base glass-mid border border-white/5 p-5 h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 cursor-pointer group"
                             onClick={() => handleCreateFromSuggestion(suggestion)}
                           >
                             <div className="flex items-center gap-2 mb-3">
                               {logo && (
-                                <Image src={logo} alt={suggestion.platform} width={20} height={20} className="h-5 w-5 object-contain" />
+                                <Image src={logo} alt={suggestion.platform} width={20} height={20} className="h-5 w-5 object-contain flex-shrink-0" />
                               )}
                               <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
                                 {suggestion.platform}
                               </span>
                             </div>
-                            <p className="text-sm text-slate-200 line-clamp-3">
+                            <p className="text-sm text-slate-200 line-clamp-3 flex-1">
                               {suggestion.caption}
                             </p>
                           </Card>
@@ -321,27 +334,54 @@ function DashboardContent() {
                   </CardContent>
                 </Card>
               )}
-
-              <UpcomingPosts posts={posts} />
             </div>
 
-            <div className="space-y-4">
-              <div>
-                <MiniCalendar scheduledPosts={allCalendarEvents} />
-                <WeeklySummary scheduledPosts={allCalendarEvents.filter((e) => e.platform !== "holiday")} />
-              </div>
+            {/* This Week's Schedule */}
+            <div>
+              <Card className="glass-base glass-high border border-white/10 h-full">
+                <CardHeader className="pb-4 px-6 pt-6">
+                  <CardTitle className="text-base font-semibold text-white">This Week&apos;s Schedule</CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 pb-6">
+                  <div className="space-y-2.5">
+                    {Array.from({ length: 7 }, (_, i) => {
+                      const today = new Date();
+                      today.setHours(0, 0, 0, 0);
+                      const date = new Date(today);
+                      date.setDate(date.getDate() + i);
+                      const weekdayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+                      const dayName = weekdayNames[date.getDay() === 0 ? 6 : date.getDay() - 1];
+                      const dateStr = date.toISOString().split("T")[0];
+                      const count = allCalendarEvents.filter((e) => {
+                        const postDate = new Date(e.start);
+                        return postDate.toISOString().split("T")[0] === dateStr;
+                      }).length;
 
-              <AIEngagementSummary />
+                      const handleDayClick = () => {
+                        router.push(`/calendar?date=${dateStr}`);
+                      };
 
-              <RecentPublishingActivity posts={posts} />
+                      return (
+                        <button
+                          key={i}
+                          onClick={handleDayClick}
+                          className="flex items-center justify-between w-full text-xs py-1.5 px-2 rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-left"
+                        >
+                          <span className="font-medium text-gray-300">{dayName}</span>
+                          <span className={count > 0 ? "text-white font-semibold" : "text-gray-500"}>
+                            {count} posts
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
       </div>
 
-      {/* AI Copilot Bar (Fixed at Bottom) */}
-      <CopilotBar />
-      
       {/* Floating Create Button */}
       <FloatingCreateButton />
     </div>

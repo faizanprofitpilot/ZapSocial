@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   ChevronLeft,
   ChevronRight,
@@ -100,10 +100,29 @@ function sameDay(dateA: Date, dateB: Date): boolean {
 
 export function CalendarView({ events }: CalendarViewProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [view, setView] = useState<ViewMode>("week");
   const [referenceDate, setReferenceDate] = useState(new Date());
   const [searchTerm, setSearchTerm] = useState("");
   const [platformFilter, setPlatformFilter] = useState<string[]>([]);
+
+  // Handle date parameter from URL
+  useEffect(() => {
+    const dateParam = searchParams.get("date");
+    if (dateParam) {
+      try {
+        const date = new Date(dateParam);
+        if (!isNaN(date.getTime())) {
+          setReferenceDate(date);
+          setView("day");
+          // Clean up URL parameter after setting
+          router.replace("/calendar");
+        }
+      } catch (error) {
+        console.error("Invalid date parameter:", error);
+      }
+    }
+  }, [searchParams, router]);
 
   const filteredEvents = useMemo(() => {
     return events.filter((event) => {
@@ -342,59 +361,61 @@ export function CalendarView({ events }: CalendarViewProps) {
         </div>
       ) : (
         <div className="glass-base glass-low rounded-3xl p-4 shadow-xl shadow-black/30">
-          <div
-            className="grid"
-            style={{
-              gridTemplateColumns: `80px repeat(${view === "day" ? 1 : 7}, minmax(0, 1fr))`,
-            }}
-          >
-            <div className="sticky top-0 z-10 h-14 bg-transparent" />
-            {(view === "day" ? days : days.slice(0, 7)).map((day) => (
-              <div key={day.toISOString()} className="sticky top-0 z-10 h-14 border-l border-white/5 bg-white/5/60 px-3">
-                <p className="pt-2 text-xs font-semibold uppercase tracking-wide text-cyan-200">
-                  {day.toLocaleDateString(undefined, { weekday: "short" })}
-                </p>
-                <p className="text-sm text-gray-100">
-                  {day.toLocaleDateString(undefined, { day: "numeric", month: "short" })}
-                </p>
-              </div>
-            ))}
-
-            {HOURS.map((hour) => (
-              <>
-                <div key={`time-${hour}`} className="border-t border-white/5 px-2 py-4 text-xs text-gray-400">
-                  {formatHour(hour)}
+          <div className="h-[calc(100vh-280px)] overflow-y-auto overflow-x-auto">
+            <div
+              className="grid"
+              style={{
+                gridTemplateColumns: `80px repeat(${view === "day" ? 1 : 7}, minmax(0, 1fr))`,
+              }}
+            >
+              <div className="sticky top-0 z-10 h-14 bg-[#0f172a] border-r border-white/5" />
+              {(view === "day" ? days : days.slice(0, 7)).map((day) => (
+                <div key={day.toISOString()} className="sticky top-0 z-10 h-14 border-l border-white/5 bg-[#0f172a] px-3">
+                  <p className="pt-2 text-xs font-semibold uppercase tracking-wide text-cyan-200">
+                    {day.toLocaleDateString(undefined, { weekday: "short" })}
+                  </p>
+                  <p className="text-sm text-gray-100">
+                    {day.toLocaleDateString(undefined, { day: "numeric", month: "short" })}
+                  </p>
                 </div>
-                {(view === "day" ? days : days.slice(0, 7)).map((day) => {
-                  const key = `${formatDateKey(day)}-${hour}`;
-                  const slotEvents = eventsByDayHour.get(key) ?? [];
+              ))}
 
-                  return (
-                    <div
-                      key={`${key}-cell`}
-                      className="relative border-t border-l border-white/5 px-3 py-3"
-                    >
-                      {slotEvents.length === 0 ? (
-                        <button
-                          onClick={() => handleCreateFromSlot(
-                            new Date(day.getFullYear(), day.getMonth(), day.getDate(), hour)
-                          )}
-                          className="group flex h-7 w-7 items-center justify-center rounded-full border border-dashed border-white/20 bg-white/5 text-gray-400 opacity-0 transition hover:border-cyan-400/40 hover:text-white group-hover:opacity-100"
-                        >
-                          <Plus className="h-3 w-3" />
-                        </button>
-                      ) : (
-                        <div className="flex flex-col gap-2">
-                          {slotEvents.map((event) => (
-                            <div key={event.id}>{renderEventCard(event)}</div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </>
-            ))}
+              {HOURS.map((hour) => (
+                <>
+                  <div key={`time-${hour}`} className="sticky left-0 z-5 border-t border-white/5 px-2 py-4 text-xs text-gray-400 bg-[#0f172a] border-r border-white/5">
+                    {formatHour(hour)}
+                  </div>
+                  {(view === "day" ? days : days.slice(0, 7)).map((day) => {
+                    const key = `${formatDateKey(day)}-${hour}`;
+                    const slotEvents = eventsByDayHour.get(key) ?? [];
+
+                    return (
+                      <div
+                        key={`${key}-cell`}
+                        className="relative border-t border-l border-white/5 px-3 py-3"
+                      >
+                        {slotEvents.length === 0 ? (
+                          <button
+                            onClick={() => handleCreateFromSlot(
+                              new Date(day.getFullYear(), day.getMonth(), day.getDate(), hour)
+                            )}
+                            className="group flex h-7 w-7 items-center justify-center rounded-full border border-dashed border-white/20 bg-white/5 text-gray-400 opacity-0 transition hover:border-cyan-400/40 hover:text-white group-hover:opacity-100"
+                          >
+                            <Plus className="h-3 w-3" />
+                          </button>
+                        ) : (
+                          <div className="flex flex-col gap-2">
+                            {slotEvents.map((event) => (
+                              <div key={event.id}>{renderEventCard(event)}</div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </>
+              ))}
+            </div>
           </div>
         </div>
       )}

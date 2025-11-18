@@ -1074,7 +1074,7 @@ export function AIComposer() {
           <Button
             onClick={handleGeneratePosts}
             disabled={loading}
-            className="inline-flex flex-1 min-w-[200px] items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 py-3 text-base font-semibold text-black shadow-md shadow-cyan-500/10 hover:from-cyan-500 hover:to-cyan-700"
+            className="inline-flex flex-1 min-w-[200px] items-center justify-center gap-2 rounded-full bg-cyan-500 py-3 text-base font-semibold text-black shadow-md shadow-cyan-500/10 hover:bg-cyan-600"
           >
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Zap className="h-4 w-4" />}
             {loading ? "Posting" : "Post Now"}
@@ -1178,7 +1178,7 @@ export function AIComposer() {
               <Button
                 onClick={handleScheduleConfirm}
                 disabled={scheduleLoading}
-                className="bg-gradient-to-r from-cyan-400 to-cyan-600 hover:bg-gradient-to-r from-cyan-400 to-cyan-600-hover"
+                className="bg-cyan-500 hover:bg-cyan-600"
               >
                 {scheduleLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Calendar className="h-4 w-4" />}
                 <span className="ml-2">Confirm Schedule</span>

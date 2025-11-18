@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
@@ -12,11 +12,14 @@ import {
   Paperclip,
   Search,
   X,
+  Bot,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FiltersDropdown } from "./FiltersDropdown";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { createClient } from "@/lib/supabase/client";
 
 export type InboxTag = {
   id: string;
@@ -85,11 +88,72 @@ const placeholderAvatars: Record<string, string> = {
 
 export function InboxView({ filters, messages }: InboxViewProps) {
   const router = useRouter();
+  const [supabase, setSupabase] = useState<ReturnType<typeof createClient> | null>(null);
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [typeFilters, setTypeFilters] = useState<string[]>([]);
   const [selectedMessage, setSelectedMessage] = useState(messages[0]?.id ?? "");
   const [reply, setReply] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [autoReplyEnabled, setAutoReplyEnabled] = useState(false);
+  const [savingAutoReply, setSavingAutoReply] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setSupabase(createClient());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!supabase) return;
+
+    const loadAutoReplySetting = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
+        const { data } = await supabase
+          .from("user_settings")
+          .select("comment_auto_reply_enabled")
+          .eq("user_id", user.id)
+          .single();
+
+        if (data) {
+          setAutoReplyEnabled(data.comment_auto_reply_enabled || false);
+        }
+      } catch (error) {
+        console.error("Error loading auto-reply setting:", error);
+      }
+    };
+
+    loadAutoReplySetting();
+  }, [supabase]);
+
+  const handleToggleAutoReply = async (enabled: boolean) => {
+    if (!supabase) return;
+
+    setSavingAutoReply(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { error } = await supabase
+        .from("user_settings")
+        .upsert({
+          user_id: user.id,
+          comment_auto_reply_enabled: enabled,
+          updated_at: new Date().toISOString(),
+        });
+
+      if (error) throw error;
+
+      setAutoReplyEnabled(enabled);
+    } catch (error) {
+      console.error("Error saving auto-reply setting:", error);
+      alert("Failed to update auto-reply setting");
+    } finally {
+      setSavingAutoReply(false);
+    }
+  };
 
   const toggleFilter = (id: string) => {
     setActiveFilters((prev) => (prev.includes(id) ? prev.filter((value) => value !== id) : [...prev, id]));
@@ -304,14 +368,27 @@ export function InboxView({ filters, messages }: InboxViewProps) {
             <p className="text-xs uppercase tracking-wide text-cyan-300">Inbox</p>
             <h2 className="text-lg font-semibold text-white">Messages & Comments</h2>
           </div>
-          <FiltersDropdown
-            filters={filters}
-            activeFilters={activeFilters}
-            typeFilters={typeFilters}
-            onToggleFilter={toggleFilter}
-            onToggleTypeFilter={toggleTypeFilter}
-            onClearAll={clearAllFilters}
-          />
+          <div className="flex items-center gap-3">
+            {/* AI Auto-Reply Toggle */}
+            <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5">
+              <Bot className="h-3.5 w-3.5 text-cyan-400" />
+              <span className="text-xs text-gray-300">AI Auto-Reply</span>
+              <Switch
+                checked={autoReplyEnabled}
+                onCheckedChange={handleToggleAutoReply}
+                disabled={savingAutoReply}
+                className="scale-75"
+              />
+            </div>
+            <FiltersDropdown
+              filters={filters}
+              activeFilters={activeFilters}
+              typeFilters={typeFilters}
+              onToggleFilter={toggleFilter}
+              onToggleTypeFilter={toggleTypeFilter}
+              onClearAll={clearAllFilters}
+            />
+          </div>
         </div>
 
         {/* Search */}

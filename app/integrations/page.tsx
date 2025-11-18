@@ -74,10 +74,13 @@ export default function IntegrationsPage() {
     setLoading(false);
   };
 
+  // Load integrations when supabase client is ready
   useEffect(() => {
-    loadIntegrations();
+    if (supabase) {
+      loadIntegrations();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [supabase]);
 
   const connectedPlatforms = integrations.map((i) => i.platform);
   const facebookIntegration = integrations.find((i) => i.platform === "facebook");
